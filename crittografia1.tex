@@ -289,6 +289,65 @@ ciphertext: $88^7 \mod(187) \Rightarrow 11$\\
 plaintext: $11^23 \mod(187) \Rightarrow 88$\\
 Bisogna fare attenzione che il messaggio deve essere al più uguale alla dimensione $n$ se il messaggio è di dimensione più grande si divide in ``parti'' che hanno dimensione $n$
 
-\subsubsection{Dimostrazione RSA}
+\subsubsection{Dimostrazione corettezza RSA}
+
+Siano $p,q$ primi tc $MCD(e,\phi(n))=1$ e:\\
+$e\cdot d \equiv 1 \mod(\phi(n))$\\
+$ciphertext: plaintext^e \mod(n)$\\
+$plaintext: ciphertext^d \mod(n)$\\
+Allora possiamo dire che:
+$(ciphertext)^d \mod(n) \equiv ((plaintext)^e)^d \mod(n) \equiv plaintext^{e\cdot d} \mod(n)$\\
+Vogliamo ora riscrivere $e \cdot d$ in una maniera più comoda, sfruttiamo quindi la funzione di Eulero tenendo a mente 3 cose:\\
+\begin{itemize}
+\item[1)]$\phi(n) = \phi(p\cdot q) = (p-1)\cdot(q-1)$
+\item[2)]$e\cdot d = 1 \cdot \mod(\phi(n))$
+\item[3)]$e\cdot d = 1 \cdot K\cdot \phi(n)$
+\end{itemize}
+Riscriviamo ora $e \cdot d$:\\
+$(plaintext)^{K \cdot \phi(n)+1}\mod(n) = (plaintext)^{k\cdot(p-1)\cdot(q-1)+1}\mod(n)\equiv plaintext$\\
+Dimostriamo ora che quanto scritto è corretto, semplifichiamo la dimostrazione e spezziamola in 3 parti: la prima parte dimostriamo per p la seconda parte per q ed infine per $p\cdot q$:\\
+$(plaintext)^{k\cdot(p-1)\cdot(q-1)+1}\mod(n)=m$ sfrutto il teorema cinese dei resti:\\
+$m\mod(q\cdot p) \Rightarrow \begin{cases}a\mod p \\b\mod q\end{cases}$
+
+divido quindi l'ipotesi in due parti:
+\begin{center}
+$\begin{cases}
+(m)^{k\cdot(p-1)\cdot(q-1)+1}\mod(p)\equiv m \mod(p) (1)\\
+(m)^{k\cdot(p-1)\cdot(q-1)+1}\mod(q)\equiv m \mod(q) (2)
+\end{cases}
+$\\
+\end{center}
+
+Iniziamo a dimostrare la prima congruenza:\\
+Ci sono due casi:
+\begin{center}
+$\begin{cases}
+MCD(p,m)\not=1\\
+MCD(p,m)=1
+\end{cases}
+$\\
+\end{center}
+Se siamo nel primo caso p e m non sono coprimi ma dato che p è primo allora sicuramente m è un multiplo di p quindi:\\
+$m\equiv 0 \mod(p) \Rightarrow (m)^{k\cdot(p-1)\cdot(q-1)+1}\mod(p)\equiv m \mod(p)  \forall e,d$\\
+Se invece siamo nel secondo caso allora:\\
+$m^{(p-1)} \equiv 1 \mod(p) \Rightarrow [m^{(p-1)}]^{k\cdot (q-1)}\cdot m \mod(p) \equiv m $ Dato che 1 è l'elemento neutro della moltiplicazione (così come le sue potenze) $ \Rightarrow 1^{k\cdot (q-1)}\cdot m \mod(p) \equiv 1^{k\cdot(q-1)}\cdot m$
+
+La seconda congruenza si risolve come la prima, e dato che anche q è primo
+
+$$(m)^{K \cdot \phi(n)+1}\mod(n) \equiv m \mod(n) $$
+$$(m)^{K \cdot \phi(n)+1} - m\mod(n) \equiv 0 \mod(n)$$
+dato che il valore a sinistra è divisibile sia per q che per p $\Rightarrow \frac{(m)^{K \cdot \phi(n)+1} - m}{p\cdot q}$
+
+\subsubsection{Attacchi ad RSA}
+
+%ho due casi:\\
+%\begin{center}
+%$\begin{cases}
+%MCD(p,m) \not= 1\\
+%MCD(p,m) = 1
+%\end{cases}
+%$\\
+%\end{center}
+
 \end{document}
 
