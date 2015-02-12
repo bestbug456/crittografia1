@@ -5,7 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\author{Danilo "Bestbug" Giordani}
+\author{Danilo ``Bestbug'' Giordani}
 \title{Appunti crittografia I}
 
 
@@ -374,8 +374,54 @@ $$(x\cdot y)^e \mod n = (m)^e \mod n$$
 $$ i\cdot i = m$$
 Per risolvere questo attacco basta aggiungere del \textit{padding} ottenuto in maniera pseudo casuale dalla funzione OAEP(Optical assimetric encryption padding)
 \end{center}
+\item \textit{Common module attack}: Se Bob scrive ad Alice ed a Carol scrive lo stesso messaggio usando lo stesso modulo $n$ allora Bob è attaccabile, dimostrazione:\\
+$$C_1=m^{e_1} \mod(n)$$ $$ C_2=m^{e_2} \mod(n)$$\\
+Per Euclide esteso sappiamo che:\\
+$$r\cdot e_1+r\cdot e_2 = 1 \mod n$$\\
+Teniamolo a mente e concentriamoci sui due testi cifrati $C_1$ e $C_2$:
+$$(C_1)^r\cdot(C_2)^s\mod(n)$$
+$$C_1^r\cdot C_2^s \mod(n)$$
+$$(m^{e_1})^r\cdot (m^{e_2})^S \mod(n)$$
+$$m^{e_1\cdot r + e_2\cdot s} \mod(n)$$
 
+Per euclide esteso sappiamo che $e_1\cdot r + e_2\cdot s$ è uguale a 1 in $\mod(n)$ abbiamo ottenuto quindi il plaintext a patto di trovare $r$ e $s$. La soluzione è di mandare messaggi uguali a persone diverse usando chiavi diverse.
+\item \textit{Low exsponent attack}: questo attacco si usa quando $e$ è un valore piccolo e sfrutta il teorema cinese dei resti:\\
+$\begin{cases}
+c_a=m^e\mod(n_a)\\
+c_b=m^e\mod(n_b)\\
+c_c=m^e\mod(n_c)\\
+\end{cases}\Rightarrow
+$
+$\begin{cases}
+x=c_a\mod(n_a)\\
+x=c_b\mod(n_b)\\
+x=c_c\mod(n_c)\\
+\end{cases}\\
+Q_i=P_i^{-1}\mod n_i\\
+x=\sum a_i\cdot P_i \cdot Q_i \mod(P)\\
+P=n_a\cdot n_b \cdot n_c
+P_i=\frac{P}{n_i}\\
+Esercizio:
+e=3 n_a=15 n_b=77 n_c=221 c_a=7 c_b=41 c_c=208\\
+\begin{cases}
+x=7\mod(15)\\
+x=41\mod(77)\\
+x=208\mod(221)\\
+\end{cases}\\
+x=m^e \Rightarrow m=\sqrt[e]{x}\\
+P=15\cdot77\cdot221=255255\\
+P_a=17017 P_b=3315 P_c=1155\\
+Q_a=P_a^{-1}\mod(15)\\
+Q_b=P_b^{-1}\mod(77)\\
+Q_c=P_c^{-1}\mod(221)\\
+x=7\cdot 17017 \cdot 13 + 41\cdot 3315 \cdot58+208\cdot1155\cdot84 \mod 255255 = 2197 \Rightarrow \sqrt[3]{2197} = 13\\
+P_a\cdot x_a \mod (15) = 1 \Rightarrow 7\cdot x \mod(15) \Rightarrow x_a=13\\
+P_b\cdot x_b \mod (77) = 1 \Rightarrow 4\cdot x \mod(77) \Rightarrow x_b=58\\
+P_c\cdot x_c \mod (221) = 1 \Rightarrow 50\cdot x \mod(221) \Rightarrow x_c=84\\
+$
+\item L'ultimo attacco si basa solo su quanto tempo ci si impiega a criptare, in base a questo so da quanti (e quali) bit è composta la chiave. Per risolvere questo particolare attacco si moltiplica e divide il ciphertext per una stessa quantità generata casualmente volta per volta.
 \end{itemize}
+\subsubsection{Test di primalità in RSA}
 %ho due casi:\\
 %\begin{center}
 %$\begin{cases}
