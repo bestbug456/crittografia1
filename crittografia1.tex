@@ -339,7 +339,43 @@ $$(m)^{K \cdot \phi(n)+1} - m\mod(n) \equiv 0 \mod(n)$$
 dato che il valore a sinistra è divisibile sia per q che per p $\Rightarrow \frac{(m)^{K \cdot \phi(n)+1} - m}{p\cdot q}$
 
 \subsubsection{Attacchi ad RSA}
+\begin{itemize}
+\item se l'attaccante è a conoscenza del valore $\phi(n)$ allora può ottenere $p+q$:
+$$n- \phi(n)+1 = pq-(p-1)\cdot(q-1)+1 = p\cdot q - (p\cdot q-p-q+1)+1 = p+q$$\\
+prendiamo ora l'equazione $x^2+b\cdot x + c = 0$ con $b=-(p+q)$ e $c=p\cdot q$ e otteniamo che:\\
+$$\begin{cases}
+x_1\cdot x_2 = \frac{c}{a} = c = p\cdot q = n\\
+x_1+x_2 = -\frac{b}{a} = b = p+q
+\end{cases}$$\\
+basta quindi trovare i punti dove si annulla l'equazione per trovare p e q.\\
+Esempio:
+$n=221 \phi(n)=192 \\ n-\phi(n)+1=30 \\ x^2-30\cdot x + 221 = 0 \\ x_{1,2}=\frac{+\frac{30}{2}+/- \sqrt{15^2-4\cdot a \cdot c} }{1} \Rightarrow x_1=p=13,x_2=q=17$
+\item Un'altro attacco si basa sul recupero parziale della chiave privata $K_p$: se su una chiave di $m$ cifre si riescono a recuperare $\frac{m}{4}$ cifre si riesce a recuperare la chiave nella sua interezza
+\item attacco allo spazio delle chiavi di $d$. Se la condizione $d<\frac{1}{3}\cdot\sqrt[4]{n}$ è falsa allora si è attaccabili
+\item È possibile attaccare RSA tramite la sua implementazione:\\
+So che RSA generalmente viene usato per cifrare piccoli testi di $\sim$ 8 caratteri il dominio è quindi di $\sim 10^17$ ma il mio testo \textit{m} è possibile scriverlo come $m=a\cdot b$ con $a,b\le 10^9$ quindi posso lavorare su uno spazio di $10^9$. Genero ora una tabelle nel seguente modo:
+\begin{center}
+\begin{tabular}{c|c}
+$C\cdot x^{-e} \mod(n)$& 	$y^e \mod(n)$ \\
+\hline
+$C\cdot 1^e \mod(n)$& 	$1^e \mod(n)$ \\
+$C\cdot 2^e \mod(n)$& 	$2^e \mod(n)$ \\
+.&.\\
+$C\cdot i^e \mod(n)$& 	$i^e \mod(n)$  \\
+.&.\\
+$C\cdot (10^9)^e \mod(n)$& 	$(10^9)^e \mod(n)$ \\
+\end{tabular}\\
+supponiamo che nel caso $i$ il valore a destra e sinistra sia uguale allora possiamo dire che:
+$$ C\cdot i^{-e} \mod(n)=i^e \mod(n)$$
+$$ C=i^e\cdot i^e \mod n$$
+$$ C=(i\cdot i)^e \mod n$$\\
+Ma noi sappiamo che $C=m^e \mod(n)$ quindi:
+$$(x\cdot y)^e \mod n = (m)^e \mod n$$
+$$ i\cdot i = m$$
+Per risolvere questo attacco basta aggiungere del \textit{padding} ottenuto in maniera pseudo casuale dalla funzione OAEP(Optical assimetric encryption padding)
+\end{center}
 
+\end{itemize}
 %ho due casi:\\
 %\begin{center}
 %$\begin{cases}
