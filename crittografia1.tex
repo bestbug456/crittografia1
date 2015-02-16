@@ -401,8 +401,14 @@ Q_i=P_i^{-1}\mod n_i\\
 x=\sum a_i\cdot P_i \cdot Q_i \mod(P)\\
 P=n_a\cdot n_b \cdot n_c
 P_i=\frac{P}{n_i}\\
-Esercizio:
-e=3 n_a=15 n_b=77 n_c=221 c_a=7 c_b=41 c_c=208\\
+Esercizio:\\
+e=3\\
+n_a=15\\
+n_b=77\\
+n_c=221\\
+c_a=7\\
+c_b=41\\
+c_c=208\\
 \begin{cases}
 x=7\mod(15)\\
 x=41\mod(77)\\
@@ -421,7 +427,39 @@ P_c\cdot x_c \mod (221) = 1 \Rightarrow 50\cdot x \mod(221) \Rightarrow x_c=84\\
 $
 \item L'ultimo attacco si basa solo su quanto tempo ci si impiega a criptare, in base a questo so da quanti (e quali) bit è composta la chiave. Per risolvere questo particolare attacco si moltiplica e divide il ciphertext per una stessa quantità generata casualmente volta per volta.
 \end{itemize}
-\subsubsection{Test di primalità in RSA}
+\section{Test di primalità}
+\subsection{Prefazione}
+Sono test probabilistici che permettono di dire se un numero n è \textit{probabilmente} primo. Questi test non fattorizzano ma trovano un contro esempio per dimostrare che è primo, il fatto che non lo riescano a dimostrare non implica che un numero n non è sicuramente primo.
+
+\subsubsection{Basic priciple}
+Se $n$ è un numero primo allora $\not \exists x,y$ tc:
+$$x^2\equiv y^2 \mod(n)$$
+
+Se esiste allora $n$ è composto inoltre:
+
+$$MCD(x-y;n)
+\begin{cases}
+p\\q
+\end{cases}
+$$
+con p e q primi.\\
+Esempio:
+$n=35\\
+2^2=12^2 \mod(35)\\
+12 \not = 2 \mod(35) \Rightarrow n$ risulta quindi composto\\
+
+\subsubsection{Test probabilistico di Fermat}
+Si basa sul teorema di fermat:\\
+se p è primo $\Rightarrow a^{p-1}\equiv 1 \mod(p)$
+Esempio:\\
+$n=35$ se prendo $a=2:\\
+2^{24}\equiv \mod(35) \Rightarrow \equiv 9
+$
+\subsubsection{Test di miller-rabin}
+Se penso che n sia primo trovo $n-1=2^k\cdot m$ e dico:\\
+$a^m=b_0 \mod(n)$ Ha come risultato $ \pm 1$ in questo caso mi fermo e ho dimostrato che n è primo altrimenti:\\
+$b_0^m=b_1 \mod(n)$ Ha come risultato $+1$ allora n è probabilmente composto (e mi fermo) altrimenti se è $-1$ è probabilmente primo (e mi fermo). Invece se il risultato è diverso da $\pm 1$ allora continuo questa operazione fino ad un massimo di $k$ volte, se non ho trovato nulla per allora cambio $a$. Miller Rabbin ha il 25\%
+ 
 %ho due casi:\\
 %\begin{center}
 %$\begin{cases}
