@@ -431,7 +431,7 @@ $
 \subsection{Prefazione}
 Sono test probabilistici che permettono di dire se un numero n è \textit{probabilmente} primo. Questi test non fattorizzano ma trovano un contro esempio per dimostrare che è primo, il fatto che non lo riescano a dimostrare non implica che un numero n non è sicuramente primo.
 
-\subsubsection{Basic priciple}
+\subsection{Basic priciple}
 Se $n$ è un numero primo allora $\not \exists x,y$ tc:
 $$x^2\equiv y^2 \mod(n)$$
 
@@ -448,18 +448,45 @@ $n=35\\
 2^2=12^2 \mod(35)\\
 12 \not = 2 \mod(35) \Rightarrow n$ risulta quindi composto\\
 
-\subsubsection{Test probabilistico di Fermat}
+\subsection{Test probabilistico di Fermat}
 Si basa sul teorema di fermat:\\
 se p è primo $\Rightarrow a^{p-1}\equiv 1 \mod(p)$
 Esempio:\\
 $n=35$ se prendo $a=2:\\
 2^{24}\equiv \mod(35) \Rightarrow \equiv 9
 $
-\subsubsection{Test di miller-rabin}
+\subsection{Test di Miller-Rabin}
 Se penso che n sia primo trovo $n-1=2^k\cdot m$ e dico:\\
 $a^m=b_0 \mod(n)$ Ha come risultato $ \pm 1$ in questo caso mi fermo e ho dimostrato che n è primo altrimenti:\\
-$b_0^m=b_1 \mod(n)$ Ha come risultato $+1$ allora n è probabilmente composto (e mi fermo) altrimenti se è $-1$ è probabilmente primo (e mi fermo). Invece se il risultato è diverso da $\pm 1$ allora continuo questa operazione fino ad un massimo di $k$ volte, se non ho trovato nulla per allora cambio $a$. Miller Rabbin ha il 25\%
- 
+$b_0^m=b_1 \mod(n)$ Ha come risultato $+1$ allora n è probabilmente composto (e mi fermo) altrimenti se è $-1$ è probabilmente primo (e mi fermo). Invece se il risultato è diverso da $\pm 1$ allora continuo questa operazione fino ad un massimo di $k$ volte, se non ho trovato nulla per allora cambio $a$. Miller Rabbin ha il 25\% di probabilità di errore per $m=1$ con m valori distinti di $a$ che uso per verificare la primalità di $n$ per ridurre la probabilità di errore si prendono più valori di a. Si definisce pseudo primo un numero non primo che passa il test di Fermat e non di Miller Rabin, se passano anche Miller Rabin si dicono pseudo primi forti. Aumentando i diversi valori di a si riducono i numeri pseudo primi che riescono a passare il test.
+\section{Teniche di Fattorizazione}
+Si usano per trovare i fattori che compongono n.
+\subsection{Fattorizazione di Eulero-Fermat}
+Se si prendono $p$ e $q$ abbastanza vicini so che sono in un intorno della $\sqrt{n}$
+$n=x^2-y^2=(x+y)\cdot(x-y)\\x^2=n+y^2$\\
+Esempio:\\
+$n=295927 \sqrt{n+x^2}$ è una radice perfetta per $x=3$ e $x=554$ quindi
+$n=544^2-3^2=\begin{cases}
+544+3 = 547 (q)\\
+554-3 = 541 (p)
+\end{cases}
+$
+\subsection{tecnica Rho di Pollar}
+$p-1$ e $q-1$ non devono avere \textit{solo} fattori piccoli altrimenti è velocemente fattorizzabile, per risolvere questo problema prendo un numero c primo e lo moltiplico per un certo valore $k$ aggiungo 1 e faccio il test di Miller-Rabin e di Fermat se lo passa ho trovato un numero che non è attaccabile da questa tecnica.
+\subsection{Quadratic seev (versione semplice)}
+Si basa sul basic principle: se trovo per $n$ k valori tc:\\
+$$x_0^2\equiv y_0^2\cdot m_0^2 \cdot ... \cdot k_0^2 \mod(n)$$ \\
+$$x_1^2\equiv y_1^2\cdot m_1^2 \cdot ... \cdot k_1^2 \mod(n)$$ \\
+allora posso "raggruppare" questi valori per ottenere:
+$$
+x_0\cdot x_1 \cdot .... x_k = y_0 \cdot m_0 \cdot k_0 \cdot ... \cdot k_k\\
+\Rightarrow \\
+x = y\\
+$$
+$$MCD(x-y,n)=p oppure q
+$$
+La tecnica Rho di Pollar si usa per attaccare RSA.
+
 %ho due casi:\\
 %\begin{center}
 %$\begin{cases}
