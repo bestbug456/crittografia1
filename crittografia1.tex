@@ -486,6 +486,54 @@ $$
 $$MCD(x-y,n)=p oppure q
 $$
 La tecnica Rho di Pollar si usa per attaccare RSA.
+\section{Cifrari a chiave simmetrica: DES}
+\subsection{prefazione}
+Un po' di storia
+\begin{itemize}
+\item 1970: Viene creato da IBM lucypher, un cifrario che utilizza blocchi da 64 bit (8 caratteri per volta).
+\item 1973: Il NIST propone un bando per un nuovo cifrario da usare come standard, IBM propone lucypher, l'NSA interessato al cifrario propone alcune modifiche durante la gara, nasce così DES
+\item 1977: DES diventa US standard
+\end{itemize}
+
+C'erano però dei problemi legati a DES:
+\begin{itemize}
+\item DES usava chiavi piccole
+\item NSA aveva messo mano e segretato una parte del codice
+\item Nessuno poteva testare le funzioni dell'NSA
+\item Ogni chiave di DES è composta da 8 bit e l'ottavo è di parità si hanno quindi chiavi da 7 caratteri. Nel caso peggiore ho quindi $2^58$ chiavi mentre il caso medio è di $2^28$ chiavi
+\item DES fa 16 round, ovvero chiamate di funzione, di tipo Feistell: questo tipo di funzione computa solo il 50\% del plaintext quindi ogni metà del testo veniva computata solo 8 volte
+\end{itemize}
+\subsection{Struttura di DES}
+Di seguito si riporta lo schema generale di DES:
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.6]{immagini/DES_fastell.png}
+\end{figure}
+
+\subsubsection{La funzione Feistell}
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.6]{immagini/DES_round.png}
+\end{figure}
+
+La funzione Feistel, opera su mezzo blocco (32 bit) per volta e consiste di 4 passi:
+\begin{itemize}
+\item  Espansione - il mezzo blocco di 32 bit è espanso fino a 48 bit utilizzando la permutazione di espansione contraddistinta con E nello schema, che duplica alcuni bit.
+\item Miscelazione con la chiave - il risultato è combinato con una sottochiave usando un'operazione di XOR. Sedici sottochiavi di 48 bit, una per ogni ciclo, sono derivate dalla chiave principale usando il gestore della chiave (descritto più avanti).
+\item Sostituzione - dopo la miscelazione con la sottochiave, il blocco viene diviso in 8 parti di 6 bit prima del processamento con le S-box o substitution box (scatole di sostituzione). Ognuna delle 8 S-box sostituisce 6 bit in input con 4 bit in output mediante una trasformazione non lineare effettuata attraverso una tabella. Le S-box forniscono il cuore della sicurezza del DES — senza di esse, la cifratura sarebbe lineare e quindi facilmente violabile.
+\item Permutazione - infine, i 32 bit risultanti dalle S-box sono riordinati in base alle permutazioni fisse della P-box o permutation box.  
+\end{itemize}
+
+L'alternanza di sostituzioni mediante le S-box, le permutazioni con la P-box e le espansioni forniscono la cosiddetta confusione e diffusione, un concetto identificato da Claude Shannon negli anni quaranta come condizione necessaria per rendere pratica e sicura la cifratura.
+
+\subsubsection{Gestore della chiave}
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.6]{immagini/DES_gestore_chiave.png}
+\end{figure}
+
+L'algoritmo che genera le sottochiavi. Inizialmente, vengono selezionati 56 bit della chiave dagli iniziali 64 bit mediante la funzione Permuted Choice 1 (PC-1) - i rimanenti 8 bit sono scartati o utilizzati come bit di controllo della parità. I 56 vengono poi suddivisi in 2 metà di 28 bit; ogni metà è poi trattata separatamente. Nei cicli successivi entrambe le metà vengono fatte slittare verso sinistra di 1 o 2 bit (per i round 1, 2, 9, 16 lo shift, cioè lo slittamento, è di 1 bit, per gli altri è di 2) e quindi vengono scelti 48 bit per la sottochiave mediante la funzione Permuted Choice 2 (PC-2) - 24 bit dalla metà di sinistra e 24 bit da quella di destra. La rotazione (denotata da "<<<" nello schema) significa che in ogni sottochiave è usato un insieme differente di bit; ogni bit è usato più o meno in 14 delle 16 sottochiavi.Il gestore delle chiavi per la decifratura è simile - deve generare le chiavi nell'ordine inverso quindi la rotazione è verso destra invece che verso sinistra.
+
 
 %ho due casi:\\
 %\begin{center}

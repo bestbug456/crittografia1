@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  16 FEB 2015 10:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  16 FEB 2015 11:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -591,35 +591,63 @@ Underfull \hbox (badness 10000) in paragraph at lines 478--479
 
  []
 
-[15] (./crittografia1.aux) ) 
+[15] <immagini/DES_fastell.png, id=71, 222.8325pt x 600.2425pt>
+File: immagini/DES_fastell.png Graphic file (type png)
+
+<use immagini/DES_fastell.png>
+Package pdftex.def Info: immagini/DES_fastell.png used on input line 510.
+(pdftex.def)             Requested size: 133.70053pt x 360.14827pt.
+
+<immagini/DES_round.png, id=72, 376.40625pt x 383.4325pt>
+File: immagini/DES_round.png Graphic file (type png)
+
+<use immagini/DES_round.png>
+Package pdftex.def Info: immagini/DES_round.png used on input line 516.
+(pdftex.def)             Requested size: 225.84547pt x 230.06126pt.
+ [16 <./immagini/DES_fastell.png>]
+<immagini/DES_gestore_chiave.png, id=77, 301.125pt x 492.84125pt>
+File: immagini/DES_gestore_chiave.png Graphic file (type png)
+
+<use immagini/DES_gestore_chiave.png>
+Package pdftex.def Info: immagini/DES_gestore_chiave.png used on input line 532
+.
+(pdftex.def)             Requested size: 180.67638pt x 295.70702pt.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 536.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [17 <./immagini/DES_round.png>] [18 <./immagini/DES_gestore_chiave.png (PNG c
+opy)>]
+(./crittografia1.aux) ) 
 Here is how much of TeX's memory you used:
- 3452 strings out of 494417
- 43897 string characters out of 6165016
+ 3478 strings out of 494417
+ 44618 string characters out of 6165016
  114342 words of memory out of 5000000
- 6633 multiletter control sequences out of 15000+600000
- 11849 words of font info for 46 fonts, out of 8000000 for 9000
+ 6652 multiletter control sequences out of 15000+600000
+ 11955 words of font info for 47 fonts, out of 8000000 for 9000
  372 hyphenation exceptions out of 8191
  37i,8n,24p,1228b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
-.pfb>
-Output written on crittografia1.pdf (15 pages, 470254 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+
+Output written on crittografia1.pdf (18 pages, 541818 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 139 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
