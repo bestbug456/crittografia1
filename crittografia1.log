@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  17 FEB 2015 11:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  17 FEB 2015 13:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -576,107 +576,134 @@ Underfull \hbox (badness 10000) in paragraph at lines 388--428
 
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 444--450
+[13] [14] <immagini/SubBytes.png, id=68, 803.0pt x 416.55624pt>
+File: immagini/SubBytes.png Graphic file (type png)
+
+<use immagini/SubBytes.png>
+Package pdftex.def Info: immagini/SubBytes.png used on input line 454.
+(pdftex.def)             Requested size: 240.90186pt x 124.96783pt.
+
+<immagini/ShiftRows.png, id=69, 803.0pt x 297.11pt>
+File: immagini/ShiftRows.png Graphic file (type png)
+
+<use immagini/ShiftRows.png>
+Package pdftex.def Info: immagini/ShiftRows.png used on input line 461.
+(pdftex.def)             Requested size: 321.1943pt x 118.84189pt.
+
+<immagini/MixColumns.png, id=70, 803.0pt x 426.59375pt>
+File: immagini/MixColumns.png Graphic file (type png)
+
+<use immagini/MixColumns.png>
+Package pdftex.def Info: immagini/MixColumns.png used on input line 467.
+(pdftex.def)             Requested size: 321.1943pt x 170.63446pt.
+ [15 <./immagini/SubBytes.png> <./immagini/ShiftRows.png>] <immagini/AddRoundKe
+y.png, id=76, 773.89125pt x 602.25pt>
+File: immagini/AddRoundKey.png Graphic file (type png)
+
+<use immagini/AddRoundKey.png>
+Package pdftex.def Info: immagini/AddRoundKey.png used on input line 473.
+(pdftex.def)             Requested size: 309.55101pt x 240.89572pt.
+ [16 <./immagini/MixColumns.png> <./immagini/AddRoundKey.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 491--497
 
  []
 
-[14]
-Underfull \hbox (badness 10000) in paragraph at lines 477--478
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 524--525
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 478--479
+Underfull \hbox (badness 10000) in paragraph at lines 525--526
 
  []
 
-[15] <immagini/DES_fastell.png, id=71, 222.8325pt x 600.2425pt>
+[18] <immagini/DES_fastell.png, id=88, 222.8325pt x 600.2425pt>
 File: immagini/DES_fastell.png Graphic file (type png)
 
 <use immagini/DES_fastell.png>
-Package pdftex.def Info: immagini/DES_fastell.png used on input line 510.
+Package pdftex.def Info: immagini/DES_fastell.png used on input line 564.
 (pdftex.def)             Requested size: 133.70053pt x 360.14827pt.
 
-<immagini/DES_round.png, id=72, 376.40625pt x 383.4325pt>
+<immagini/DES_round.png, id=89, 376.40625pt x 383.4325pt>
 File: immagini/DES_round.png Graphic file (type png)
 
 <use immagini/DES_round.png>
-Package pdftex.def Info: immagini/DES_round.png used on input line 516.
+Package pdftex.def Info: immagini/DES_round.png used on input line 570.
 (pdftex.def)             Requested size: 225.84547pt x 230.06126pt.
- [16 <./immagini/DES_fastell.png>]
-<immagini/DES_gestore_chiave.png, id=77, 301.125pt x 492.84125pt>
+ [19] [20 <./immagini/DES_fastell.png>]
+<immagini/DES_gestore_chiave.png, id=98, 301.125pt x 492.84125pt>
 File: immagini/DES_gestore_chiave.png Graphic file (type png)
 
 <use immagini/DES_gestore_chiave.png>
-Package pdftex.def Info: immagini/DES_gestore_chiave.png used on input line 532
+Package pdftex.def Info: immagini/DES_gestore_chiave.png used on input line 586
 .
 (pdftex.def)             Requested size: 180.67638pt x 295.70702pt.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 535.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 589.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-) [17 <./immagini/DES_round.png>] [18 <./immagini/DES_gestore_chiave.png (PNG c
+) [21 <./immagini/DES_round.png>] [22 <./immagini/DES_gestore_chiave.png (PNG c
 opy)>]
-<immagini/ecb.png, id=85, 433.62pt x 177.0615pt>
+<immagini/ecb.png, id=106, 433.62pt x 177.0615pt>
 File: immagini/ecb.png Graphic file (type png)
  <use immagini/ecb.png>
-Package pdftex.def Info: immagini/ecb.png used on input line 546.
+Package pdftex.def Info: immagini/ecb.png used on input line 604.
 (pdftex.def)             Requested size: 260.17401pt x 106.2377pt.
 
-<immagini/cbc.png, id=86, 433.62pt x 175.6161pt>
+<immagini/cbc.png, id=107, 433.62pt x 175.6161pt>
 File: immagini/cbc.png Graphic file (type png)
  <use immagini/cbc.png>
-Package pdftex.def Info: immagini/cbc.png used on input line 556.
+Package pdftex.def Info: immagini/cbc.png used on input line 614.
 (pdftex.def)             Requested size: 346.89647pt x 140.49307pt.
 
-Overfull \hbox (1.89647pt too wide) in paragraph at lines 556--557
+Overfull \hbox (1.89647pt too wide) in paragraph at lines 614--615
 [][] 
  []
 
-[19 <./immagini/ecb.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 567--569
+[23 <./immagini/ecb.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 625--627
 
  []
 
-<immagini/cfb.png, id=91, 433.62pt x 206.6922pt>
+<immagini/cfb.png, id=111, 433.62pt x 206.6922pt>
 File: immagini/cfb.png Graphic file (type png)
  <use immagini/cfb.png>
-Package pdftex.def Info: immagini/cfb.png used on input line 574.
+Package pdftex.def Info: immagini/cfb.png used on input line 632.
 (pdftex.def)             Requested size: 346.89647pt x 165.35397pt.
 
-Overfull \hbox (1.89647pt too wide) in paragraph at lines 574--575
+Overfull \hbox (1.89647pt too wide) in paragraph at lines 632--633
 [][] 
  []
 
-[20 <./immagini/cbc.png>] <immagini/ofb.png, id=95, 433.62pt x 206.6922pt>
+<immagini/ofb.png, id=112, 433.62pt x 206.6922pt>
 File: immagini/ofb.png Graphic file (type png)
-
-<use immagini/ofb.png>
-Package pdftex.def Info: immagini/ofb.png used on input line 583.
+ <use immagini/ofb.png>
+Package pdftex.def Info: immagini/ofb.png used on input line 641.
 (pdftex.def)             Requested size: 346.89647pt x 165.35397pt.
 
-Overfull \hbox (1.89647pt too wide) in paragraph at lines 583--584
+Overfull \hbox (1.89647pt too wide) in paragraph at lines 641--642
 [][] 
  []
 
-[21 <./immagini/cfb.png (PNG copy)> <./immagini/ofb.png (PNG copy)>]
-<immagini/ctr.png, id=99, 434.3427pt x 174.8934pt>
+[24 <./immagini/cbc.png>] [25 <./immagini/cfb.png (PNG copy)> <./immagini/ofb.p
+ng (PNG copy)>] <immagini/ctr.png, id=120, 434.3427pt x 174.8934pt>
 File: immagini/ctr.png Graphic file (type png)
- <use immagini/ctr.png>
-Package pdftex.def Info: immagini/ctr.png used on input line 595.
+
+<use immagini/ctr.png>
+Package pdftex.def Info: immagini/ctr.png used on input line 653.
 (pdftex.def)             Requested size: 347.47464pt x 139.9149pt.
 
-Overfull \hbox (2.47464pt too wide) in paragraph at lines 595--596
+Overfull \hbox (2.47464pt too wide) in paragraph at lines 653--654
 [][] 
  []
 
-[22 <./immagini/ctr.png>] (./crittografia1.aux) ) 
+[26 <./immagini/ctr.png>] (./crittografia1.aux) ) 
 Here is how much of TeX's memory you used:
- 3503 strings out of 494417
- 45068 string characters out of 6165016
+ 3523 strings out of 494417
+ 45558 string characters out of 6165016
  114342 words of memory out of 5000000
- 6672 multiletter control sequences out of 15000+600000
+ 6688 multiletter control sequences out of 15000+600000
  11955 words of font info for 47 fonts, out of 8000000 for 9000
  372 hyphenation exceptions out of 8191
  37i,8n,24p,1228b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -697,10 +724,10 @@ pe1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/latxfont/lasy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msbm10.pfb>
-Output written on crittografia1.pdf (22 pages, 691328 bytes).
+Output written on crittografia1.pdf (26 pages, 828660 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
+ 179 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

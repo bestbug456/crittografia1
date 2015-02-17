@@ -427,6 +427,65 @@ P_c\cdot x_c \mod (221) = 1 \Rightarrow 50\cdot x \mod(221) \Rightarrow x_c=84\\
 $
 \item L'ultimo attacco si basa solo su quanto tempo ci si impiega a criptare, in base a questo so da quanti (e quali) bit è composta la chiave. Per risolvere questo particolare attacco si moltiplica e divide il ciphertext per una stessa quantità generata casualmente volta per volta.
 \end{itemize}
+\subsection{AES}
+\subsubsection{Prefazione}
+AES (conosciuto anche come Rijdael) è il cifrario che sostituì DES nel 2000. Vediamo ora quali sono le caratteristiche di AES:
+\begin{itemize}
+\item Utilizza blocchi da 128 bit
+\item Ha una chiave \textit{minima} di 128 bit, la chiave di lunghezza media è di 192 bit mentre la più grande è di 256 bit
+\item Il plaintext viene trattato come una matrice $4 \times 4$ 
+\item Non è un cifrario a blocchi di tipo Feistell
+\item Tutto il cifrario si basa su 4 operazioni: subByte,shiftRows,mixColumn e addRoundKey.
+\end{itemize}
+\subsubsection{Funzionamento}
+Per prima cosa AES ha un passaggio iniziale: utilizando la funzione AddRoundKey Ogni byte della tabella viene combinato con la chiave di sessione, la chiave di sessione viene calcolata dal gestore delle chiavi. Successivamente per cifrare sono previsti diversi round o cicli di processamento: ogni round (fase) dell'AES (eccetto l'ultimo) consiste dei seguenti quattro passaggi:
+\begin{itemize}
+\item SubByte: sostituzione non lineare di tutti i byte che vengono rimpiazzati secondo una specifica tabella.
+\item ShiftRows: Spostamento dei byte di un certo numero di posizioni dipendente dalla riga di appartenenza
+\item MixColumns: Combinazione dei byte con un'operazione lineare, i byte vengono trattati una colonna per volta
+\item AddRoundKey: Ogni byte della tabella viene combinato con la chiave di sessione, la chiave di sessione viene calcolata dal gestore delle chiavi
+\end{itemize}
+Il numero di round o cicli dei quattro passaggi precedenti è 10 con l'ultimo round che salta il passaggio MixColumns. Vediamo ora il loro funzionamento nello specifico
+\newpage
+\subsubsection{SubByte}
+Nel passaggio SubBytes ogni byte della matrice viene modificato tramite la S-box a 8 bit. Questa operazione provvede a fornire la non linearità all'algoritmo. La S-box utilizzata è derivata da una funzione inversa nel campo finito GF($2^8$), conosciuta per avere delle ottime proprietà di non linearità. Per evitare un potenziale attacco basato sulle proprietà algebriche la S-box è costruita combinando la funzione inversa con una trasformazione affine invertibile. La S-box è stata scelta con cura per non possedere né punti fissi né punti fissi opposti.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.3]{immagini/SubBytes.png}
+\end{figure}
+
+\subsubsection{ShiftRows}
+Il passaggio ShiftRows provvede a scostare le righe della matrice di un parametro dipendente dal numero di riga. Nell'AES la prima riga resta invariata, la seconda viene spostata di un posto verso sinistra, la terza di due posti e la quarta di tre. In questo modo l'ultima colonna dei dati in ingresso andrà a formare la diagonale della matrice in uscita. (Rijndael utilizza un disegno leggermente diverso per via delle matrici di lunghezza non fissa.)
+Tutte le operazioni sono effettuate utilizzando l'indice della colonna “modulo” il numero di colonne.
+\begin{figure}[htbp]
+\includegraphics[scale=0.4]{immagini/ShiftRows.png}
+\end{figure}
+
+\subsubsection{MixColumns}
+Il passaggio MixColumns prende i quattro byte di ogni colonna e li combina utilizzando una trasformazione lineare invertibile. Utilizzati in congiunzione, ShiftRows e MixColumns provvedono a far rispettare il criterio di confusione e diffusione nell'algoritmo (teoria di Shannon). Ogni colonna è trattata come un polinomio in GF($2^8$) e viene moltiplicata modulo $x^4+1$ per un polinomio fisso $c(x)=3x^3+x^2+x+2$.
+\begin{figure}[htbp]
+\includegraphics[scale=0.4]{immagini/MixColumns.png}
+\end{figure}
+
+\subsubsection{AddRoundKey}
+Il passaggio AddRoundKey combina con uno XOR la chiave di sessione con la matrice ottenuta dai passaggi precedenti (State). Una chiave di sessione viene ricavata dalla chiave primaria ad ogni round (con dei passaggi più o meno semplici, ad esempio uno shift di posizione dei bit) grazie al Key Scheduler.
+\begin{figure}[htbp]
+\includegraphics[scale=0.4]{immagini/AddRoundKey.png}
+\end{figure}
+
+\subsubsection{Key Scheduler}
+[TBD]
+\subsubsection{Matematica di AES}
+In matematica, in particolare in algebra, un campo finito (detto a volte anche campo di Galois) è un campo che contiene un numero finito di elementi.Particolarmente utilizzati in crittografia sono i campi della forma $F_{2^n}$ poiché presentano diversi vantaggi:
+\begin{itemize}
+\item permettono di rappresentare univocamente ogni polinomio del campo in n bit: infatti ogni coefficiente del polinomio assumerà proprio i valori binari 0 o 1;
+\item la somma tra i polinomi può essere eseguita efficientemente come semplice XOR bit-a-bit;
+\item la moltiplicazione per piccoli coefficienti (1, 2 o 3) richiede al massimo uno shift a sinistra e uno XOR
+\end{itemize}
+
+\subsubsection{Decriptazione}
+Il processo è molto semplice: basta infatti eseguire i round dal decimo fino al primo per riottenere il testo in chiaro
+
 \section{Test di primalità}
 \subsection{Prefazione}
 Sono test probabilistici che permettono di dire se un numero n è \textit{probabilmente} primo. Questi test non fattorizzano ma trovano un contro esempio per dimostrare che è primo, il fatto che non lo riescano a dimostrare non implica che un numero n non è sicuramente primo.
@@ -596,7 +655,7 @@ La modalità OFB è molto simile alla CFB. Il vantaggio della OFB è che non pro
 
 Solitamente si usa questa modalità quando si può accettare un ritardo nella risposta rispetto alla sua correttezza
 
-\section{Counter (CTR)}
+\subsection{Counter (CTR)}
 uesta quinta modalità è stata introdotta successivamente alle altre quattro, per poter essere applicata a ATM (Asynchronous Transfer Mode) e a IPsec (IP security).
 In questa modalità viene utilizzato un contatore corrispondente alle dimensioni del blocco di testo in chiaro. Il requisito essenziale è che il suo valore sia differente per ciascun blocco da cifrare; in genere viene inizializzato con un determinato valore e poi incrementato di un'unità per ogni blocco successivo (modulo $2?b$ dove $b$ corrisponde alle dimensioni del blocco).
 Per la cifratura, il contatore viene crittografato e poi si applica uno XOR col blocco di testo in chiaro per produrre il blocco di testo cifrato.
@@ -616,7 +675,7 @@ I vantaggi della modalità CTR sono:
 \item semplicità.
 \end{itemize}
     
-
+\section{Problema del logaritmo discreto}
 
 %ho due casi:\\
 %\begin{center}
