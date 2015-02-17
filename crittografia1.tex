@@ -493,6 +493,13 @@ Un po' di storia
 \item 1970: Viene creato da IBM lucypher, un cifrario che utilizza blocchi da 64 bit (8 caratteri per volta).
 \item 1973: Il NIST propone un bando per un nuovo cifrario da usare come standard, IBM propone lucypher, l'NSA interessato al cifrario propone alcune modifiche durante la gara, nasce così DES
 \item 1977: DES diventa US standard
+\item 1977: Diffi e Helman affermano che con 20 milioni di dollari è possibile sfondare DES
+\item 1982: DES passa il controllo di qualità del NIST (su pressioni fatte da NSA)
+\item 1993: Vengono proposti 3 nuovi attacchi che si basano sul calcolo distribuito
+\item 1996: Parte una challenge dove vengono messi in palio 10.000 dollari, in 6 mesi viene scoperta la chiave
+\item 1998: nuova challenge, questa volta bastano 39 giorni per scoprire la chiave
+\item 1998: Parte una challenge da 200.000 dollari, per l'occasione viene costruito un macchinario che in appena 4 giorni sfonda qualunque chiave di DES. Il NIST bandisce un nuovo concorso in cui verrà scelto AES (Advance Encryption Standard). Oggi si usa solo il triplo DES solo se la macchina è un pò datata.
+
 \end{itemize}
 
 C'erano però dei problemi legati a DES:
@@ -533,6 +540,82 @@ L'alternanza di sostituzioni mediante le S-box, le permutazioni con la P-box e l
 \end{figure}
 
 L'algoritmo che genera le sottochiavi. Inizialmente, vengono selezionati 56 bit della chiave dagli iniziali 64 bit mediante la funzione Permuted Choice 1 (PC-1) - i rimanenti 8 bit sono scartati o utilizzati come bit di controllo della parità. I 56 vengono poi suddivisi in 2 metà di 28 bit; ogni metà è poi trattata separatamente. Nei cicli successivi entrambe le metà vengono fatte slittare verso sinistra di 1 o 2 bit (per i round 1, 2, 9, 16 lo shift, cioè lo slittamento, è di 1 bit, per gli altri è di 2) e quindi vengono scelti 48 bit per la sottochiave mediante la funzione Permuted Choice 2 (PC-2) - 24 bit dalla metà di sinistra e 24 bit da quella di destra. La rotazione (denotata da "<<<" nello schema) significa che in ogni sottochiave è usato un insieme differente di bit; ogni bit è usato più o meno in 14 delle 16 sottochiavi.Il gestore delle chiavi per la decifratura è simile - deve generare le chiavi nell'ordine inverso quindi la rotazione è verso destra invece che verso sinistra.
+
+\subsection{Attacco a DES}
+\subsubsection{prefazione}
+In questo corso si vede l'attacco a DES in una versione semplificata: i Round sono 3 anzichè 16, l'input è formato da blocchi di 12 bit e di 6 bit per blocco, la funzione di espansione porta da 6 a 8 bit e le sbox prendono 4 bit in input e 3 in output. In questo modo l'attacco a DES è deterministico mentre nella versione completa di DES questo attacco è probabilistico.
+
+\section{Modalità di funzionamento dei cifrari a blocchi}
+\subsection{prefazione}
+Le modalità di funzionamento dei cifrari a blocchi sono state definite inizialmente dal NIST (National Institute of Standards and Technology) nel documento FIPS 81 (Federal Information Processing Standard) intitolato "DES modes of operation" affinché l'algoritmo di cifratura DES potesse essere applicato ad una varietà di situazioni differenti.
+Queste modalità cercano dunque di considerare tutte le possibili applicazioni della crittografia per cui può essere utilizzato l'algoritmo DES; con la successiva comparsa di nuovi requisiti, il NIST ha espanso l'elenco delle modalità di funzionamento a cinque, nel documento Special Publication 800-38A.
+Tali modalità possono essere utilizzate con qualsiasi algoritmo di cifratura simmetrica a blocchi, tra cui Triple DES e AES.
+\subsection{ECB (eletronic codebook}
+La modalità ECB è la più semplice. Il testo in chiaro viene gestito 64 bit per volta; ognuno dei blocchi di 64 bit viene cifrato con la stessa chiave. Per messaggi più lunghi di 64 bit, si procede suddividendo il messaggio in blocchi di 64 bit, utilizzando, se necessario, bit di riempimento nell'ultimo blocco.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.6]{immagini/ecb.png}
+\end{figure}
+
+Per una data chiave, esiste un unico testo cifrato per ogni blocco di testo in chiaro di 64 bit; in altre parole, se nel messaggio compare più volte lo stesso blocco di 64 bit di testo in chiaro, verrà prodotto sempre lo stesso testo cifrato. Per questo motivo, il metodo ECB è ideale per limitati volumi di dati (ad esempio, la trasmissione di una chiave di cifratura), poiché per messaggi più lunghi potrebbe essere insicuro: se si trattasse di dover cifrare un messaggio molto strutturato, l'analisi crittografica potrebbe sfruttarne le regolarità.
+
+\subsection{Cipher block chain}
+Per superare i limiti di sicurezza di ECB, è necessario l'utilizzo di una tecnica in cui lo stesso blocco di testo in chiaro, se ripetuto, produce blocchi di testo cifrato differenti. Questo è ciò che accade con la modalità CBC, in cui l'input dell'algoritmo di crittografia è il risultato dello XOR tra il blocco di testo in chiaro corrente e il blocco di testo cifrato precedente; per ciascun blocco viene utilizzata la stessa chiave.
+In fase di decifratura, ciascun blocco di testo cifrato passa attraverso l'algoritmo di decrittografia; il risultato subisce uno XOR con il blocco di testo cifrato precedente, per produrre il blocco di testo in chiaro.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.8]{immagini/cbc.png}
+\end{figure}
+
+Per produrre il primo blocco di testo cifrato, lo XOR viene effettuato tra un vettore di inizializzazione IV (dall'inglese initialization vector) e il primo blocco di testo in chiaro. In decifratura, l'IV subisce uno XOR con l'output dell'algoritmo di decrittografia in modo da ottenere nuovamente il primo blocco di testo in chiaro.
+Il vettore di inizializzazione IV deve essere dunque noto non solo al mittente ma anche al destinatario, che tipicamente lo riceve assieme alla chiave; entrambi i valori vengono crittati in modalità ECB.
+In conclusione, questa modalità è la più appropriata per cifrare messaggi più lunghi di 64 bit. Inoltre, la modalità CBC può essere utilizzata anche per l'autenticazione.
+
+\subsection{Cipher Feedback (CFB)}
+La modalità CFB è stata ideata per convertire idealmente una cifratura a blocchi in una cifratura a flusso. La cifratura a flussi non necessita di eseguire riempimenti e può inoltre operare in tempo reale.
+Nell'operazione di cifratura, l'input della funzione di crittografia è un registro a scorrimento a 64 bit che inizialmente viene impostato con un vettore di inizializzazione IV (Initialization Vector). Gli s bit più significativi (ovvero quelli più a sinistra) dell'output subiscono uno XOR con il primo segmento di testo in chiaro P1 per produrre la prima unità di testo cifrato C1. Il contenuto del registro di scorrimento viene fatto scorrere a sinistra di s bit, e negli s bit meno significativi (quelli più a destra) del registro viene inserito C1. Il processo viene reiterato fino all'esaurimento di tutte le unità di testo in chiaro.
+All'atto della decifratura, si utilizza il medesimo schema, tranne per il fatto che le unità di testo cifrato ricevute sono sottoposte ad uno XOR con l'output della funzione di crittografia. Non si utilizza dunque la funzione di decrittografia, perché, se SS(X) sono gli s bit più significativi di X, allora:
+$$ C_1 = P_1 \oplus S_S(E_k(IV)) $$\\
+Quindi:\\
+$$ P_1 = C_1 \oplus S_S(E_k(IV)) $$\\
+e lo stesso ragionamento vale per i passi successivi.
+
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.8]{immagini/cfb.png}
+\end{figure}
+
+Il problema di questa tecnica di cifratura risulta nella facilità della propagazione dell'errore dato che al passo $k_i$ la corretta decifratura dipende dal passo $k_{i-1}$.
+
+\subsection{Output Feedback (OFB)}
+La modalità OFB è molto simile alla CFB. Il vantaggio della OFB è che non propaga gli errori di trasmissione dei bit. Il suo svantaggio è che è più vulnerabile a un attacco a modifica del flusso dei messaggi.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.8]{immagini/ofb.png}
+\end{figure}
+
+Solitamente si usa questa modalità quando si può accettare un ritardo nella risposta rispetto alla sua correttezza
+
+\section{Counter (CTR)}
+uesta quinta modalità è stata introdotta successivamente alle altre quattro, per poter essere applicata a ATM (Asynchronous Transfer Mode) e a IPsec (IP security).
+In questa modalità viene utilizzato un contatore corrispondente alle dimensioni del blocco di testo in chiaro. Il requisito essenziale è che il suo valore sia differente per ciascun blocco da cifrare; in genere viene inizializzato con un determinato valore e poi incrementato di un'unità per ogni blocco successivo (modulo $2?b$ dove $b$ corrisponde alle dimensioni del blocco).
+Per la cifratura, il contatore viene crittografato e poi si applica uno XOR col blocco di testo in chiaro per produrre il blocco di testo cifrato.
+Per la decifratura si utilizza la stessa sequenza di valori del contatore ai quali si applica lo XOR con i blocchi di testo cifrato.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.8]{immagini/ctr.png}
+\end{figure}
+
+I vantaggi della modalità CTR sono:
+\begin{itemize}
+\item efficienza dell'hardware;
+\item efficienza del software;
+\item pre-elaborazioni;
+\item accesso diretto;
+\item sicurezza dimostrabile;
+\item semplicità.
+\end{itemize}
+    
 
 
 %ho due casi:\\
