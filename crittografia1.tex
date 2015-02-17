@@ -474,7 +474,40 @@ Il passaggio AddRoundKey combina con uno XOR la chiave di sessione con la matric
 \end{figure}
 
 \subsubsection{Key Scheduler}
-[TBD]
+AES (Rijndael) usa un key schedule per espandere una chiave primaria corta in un certo numero di chiavi di ciclo differenti. Questo metodo è noto con il nome key schedule di Rijndael.Il Key schedule di Rijndael utilizza un numero di operazioni comuni che vengono illustrate prima di descrivere il key schedule vero e proprio.
+\subsubsection{Rotate}
+L'operazione Rotate prende una parola di 32-bit come questa (in esadecimale):\\
+$$1D 2C 3A 4F$$\\
+e la ruota di otto bit verso sinistra, in modo che gli otto bit più a sinistra "si avvolgano" e diventino gli otto bit più a destra del risultato.\\
+2C 3A 4F 1D\\
+
+\subsubsection{Rcon}
+Rcon è quello che la documentazione del Rijndael chiama l'elevamento a potenza di 2 per un valore specificato dall'utente. Quest'operazione non è eseguita sugli interi regolari, ma nel campo finito di Rijndael. In forma polinomiale, possiamo scrivere 2 come:\\
+$ 2 = 00000010 = 0 x^7 + 0 x^6 + 0 x^5 + 0 x^4 + 0 x^3 + 0 x^2 + 1 x + 0 = x$, e calcolare\\
+$\textrm{rcon}(i) = x^{(i-1)}$\\
+in $\mathbb{F}_{2^8}$ o equivalentemente,\\
+$\textrm{rcon}(i) = x^{(i-1)} \mod x^8 + x^4 + x^3 + x + 1$\\
+in $\mathbb{F}_{2}[x]$.\\
+Per esempio, rcon(1) = 1, rcon(2) = 2, rcon(3) = 4, e rcon(9) è il numero esadecimale 0x1b (27 in decimale).
+
+\subsubsection{Il cuore del Key schedule}
+Queste operazioni vengono utilizzate in un ciclo interno nel key schedule per generare un'array di 48 word da un byte l'una. Per fare ciò esegue i seguenti passaggi\footnote{Per maggiori informazioni si guardi il seguente link: http://www.formaestudio.com/rijndaelinspector/archivos/Rijndael\_Animation\_v4\_eng.swf }
+\begin{itemize}
+\item[1] si prende in input una word $W$ da 4 byte e si occupano le prime 4 posizioni dell'array
+\item[2] Se si sta generando il byte in posizione $W_i$ si prende il byte in posizione $W_{i-1}$ 
+\item[3] Se $W_i$ è il primo byte della chiave di round si applica la funzione Rotate definita sopra per ruotare di otto bit verso sinistra $W_{i-1}$ altrimenti si va al punto 5
+\item[4] Se $W_i$ è il primo byte della chiave di round si applica la S-box di Rijndael (SubByte) su tutti e quattro i singoli byte della parola di output altrimenti si va al punto 5
+\item[5] Sul primo byte della chiave di round, si applica l'OR esclusivo tra il byte, Rcon(i) e $W_{i-4}$ mentre sugli altri si applica l'OR esclusivo tra il byte, Rcon(i).
+\item[6] Ogni 4 byte viene generata la chiave di round
+\end{itemize}
+
+
+    
+    
+   
+    
+    
+
 \subsubsection{Matematica di AES}
 In matematica, in particolare in algebra, un campo finito (detto a volte anche campo di Galois) è un campo che contiene un numero finito di elementi.Particolarmente utilizzati in crittografia sono i campi della forma $F_{2^n}$ poiché presentano diversi vantaggi:
 \begin{itemize}
@@ -676,6 +709,42 @@ I vantaggi della modalità CTR sono:
 \end{itemize}
     
 \section{Problema del logaritmo discreto}
+Il calcolo dei logaritmi discreti sembra un problema difficile (non sono noti algoritmi efficienti), mentre il problema inverso dell'esponenziazione discreta non lo è. Quest'asimmetria è analoga a quella fra la fattorizzazione di interi e la moltiplicazione di interi. Entrambe queste asimmetrie sono state utilizzate per la costruzione di sistemi crittografici. Nella crittografia basata sui logaritmi discreti scelte comuni per il gruppo G sono i gruppi ciclici $\mathbb{Z}_p^*$. Le più recenti applicazioni della crittografia usano i logaritmi discreti in sottogruppi ciclici di curve ellittiche su campi finiti; vediamo ora la effettiva difficoltà di riottenere il plaintext (che sarà indicato con x) dato il ciphertext (che sarà indicato con b). Abbiamo quindi, formalmente, il seguente problema:
+
+$$ a^x=b\mod(p)$$ con p primo.\\
+
+Come posso attaccarlo? Sfruttando il piccolo teorema di Fermat che ci dice $a^{p-1} \equiv 1 \mod(p)$ e $a^{\phi(n)}\equiv 1 \mod(n)$. Riscriviamo il problema come:\\
+
+$$ \alpha^x=\beta\mod(p)$$ con p primo e $\alpha,\beta \in Z_p$\\
+
+Vogliamo inoltre che $\alpha$ sia una \textit{radice primitiva} di $Z_p$ ovvero che se $\alpha$ è elevato a tutte le classi di resto di $Z_p$ allora genera tutto il campo una e una sola volta.\\
+Esempio:\\
+$
+\alpha = 3
+\\Z_p=\{0,1,2,3,4,5,6\}\\
+\alpha^1 = 3\\
+\alpha^2 = 2\\
+\alpha^3 = 6\\
+\alpha^4 = 4\\
+\alpha^5 = 5\\
+\alpha^6 = 1\\
+$
+Quindi nel nostro esempio 3 è una radice primitiva. Tornando al caso generale per il piccolo teorema di Fermat sappiamo che $\alpha^{p-1}\equiv 1 \mod(p)$ quindi:
+$$ \alpha^{(p-1)\cdot 1}\equiv 1 \mod(p) =\alpha^{(p-1)\cdot \frac{2}{2}}\equiv 1 \mod(p) = (\alpha^{\frac{p-1}{2}})^\frac{1}{2}\equiv 1 \mod(p) =$$ $$ (\alpha^{\frac{p-1}{2}})^x\equiv 1 \mod(p) = 1 \vee -1 $$
+arrivati alla fine possiamo dire che il valore $1$ non è accettabile perchè sappiamo che $\alpha$ è una radice primitiva e che $\alpha^{p-1}\equiv 1 \mod(p)$. Quindi l'unico valore accettabile è $-1$, proseguiamo riprendendo il problema:\\
+$$ (\alpha^{\frac{p-1}{2}})^x\equiv \beta^{\frac{p-1}{2}} $$\\
+
+sappiamo che $\alpha = -1$ quindi:\\
+
+$$(-1)^x \equiv \beta^{\frac{p-1}{2}}$$
+
+Quindi facendo così posso capire se x è pari o dispari ma ho ancora uno spazio delle chiavi ancora troppo grande! Infatti se lo spazio delle chiavi è $2^{300}$ l'ho ridotto a $2^{299}$. Questa tecnica non è molto efficente, vediamo ora una versione più evoluta: l'attacco baby step - giant step.
+
+\subsection{Attacco baby step - giant step}
+
+$\alpha^x \equiv \beta \mod(p)$ - $N^2\ge p-1 $ - $N=\mathcal{b} \sqrt{p-1} \mathcal{c} +1$\\
+
+Ora creo una lista di potenze di $\alpha$ in questo modo: $\sum_{J=0}^{J=N}$
 
 %ho due casi:\\
 %\begin{center}
