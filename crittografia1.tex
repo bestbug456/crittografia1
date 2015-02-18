@@ -743,21 +743,46 @@ $\alpha^n \equiv \beta \cdot\alpha^{-N\cdot k} \Rightarrow \alpha^n \cdot \alpha
 Ma $j+N\cdot k$ è il valore x che stavamo cercando. Questo attacco va bene fino a $10^20$ cifre poi il tempo di computazione diventa troppo elevato.
 
 \subsection{Attacco Index Calculus}
-Questo tipo di attacco esegue una precomputazione "sperando" che con i conti fatti si possa trovare la il valore di x. Inizio a calcolare "un pò" di $\alpha^{k_n} \equiv y \mod(p)$ con y primo $\leq$ B (valore scelto in base alla macchina). I $K$ che si trovano in questo modo si chiamano base di fattorizzazione.
-\begin{center}
-$\begin{cases}
-\alpha^{k_1} \equiv y^m \mod(p)\\
-\alpha^{k_2} \equiv y^m \mod(p)\\
-.\\
-.\\
-.\\
-\alpha^{k_n} \equiv y^m \mod(p)\\
-\end{cases}
-$\\
-\end{center}
-$\alpha^K = \pi_{j} P_j\mod(p)$\\
-$ \log_{\alpha}(\alpha^k)= \sum_{i} a_i \cdot \log(\alpha)\cdot p_i \mod(p-1)$\\
-Teniamo a mente i conti fatti fino ad ora e 
+Questo tipo di attacco esegue una precomputazione "sperando" che con i conti fatti si possa trovare la il valore di x. Eva recupera il messaggio cifrato $\beta=\alpha^x$ la base $\alpha$ e il numero primo della chiave pubblica. A questo punto Eva sceglie una base di fattorizzazione ovvero un insieme di numeri primi minori di un valore N. A questo punto trovo un po' di valori $\alpha^k$ con $0\leq k \leq \beta$ e se riesco a trovare il valore congruo in $Z_p$ esprimibile tramite la base di fattorizazione tengo il valore altrimenti calcolo altri $\alpha^k$ fino a quando non ho trovato tutti i valori che posso rappresentare tramite la base di fattorizzazione in $Z_p$. A questo punto calcolo i vari logaritmi dei valori che ho trovatoè, finiti questi calcoli genero un valore $r$ casuale e calcolo $\beta\cdot\alpha^r$ se questo valore posso rappresentarlo tramite la base di fattorizzazione allora posso trovare il valore x, infatti:
+$$ \beta \cdot \alpha^r =
+ \alpha^x \cdot \alpha^r = 
+ \log_{\alpha}(\alpha^x \cdot \alpha^r) =
+  \log_{\alpha}(\alpha^{x+r})) = x+r$$\\
+
+A questo punto basta sottrare $r$ al valore ottenuto e si riesce ad ottenere x, se invece non si riesce ad ottenere $\beta\cdot\alpha^r$ con la base di fattorizzazione devo provare con un altro $r$.
+\section{Lo scambio di chiavi di Diffie ed Helman}
+Sfruttando il logaritmo discreto Diffie ed Helman hanno sviluppato una tecnica di scambio delle chiavi senza che queste ultime passino effettivamente sul canale, per capire il funzionamento facciamo un esempio: Alice e Bob lavorano per la stessa azienda di colori, hanno deciso che per sicurezza dovranno usare un particolare inchiostro colorato per scrivere le lettere che si scambiano, il loro problema è come possano spedirsi i colori senza che Eva (la concorrente) possa guardare e copiare l'inchiostro. Il seguete schema spiega il funzionamento:
+\begin{figure}[htbp]
+\includegraphics[scale=0.6]{immagini/scambioChiavi.png}
+\end{figure}
+
+Nella pratica Alice comunica a Bob due valori $\alpha$ e $p$ successivamente sia Alice che Bob calcolano ognuno un valore $x$ nel caso di Alice e $y$ nel caso di Bob successivamente fanno rispettivamente  $\alpha^x$ e $\alpha^y$ e si scambiano il risultato, successivamente Alice farà $(\alpha^y)^x$ e Bob invece $(\alpha^x)^y$ grazie al problema del logaritmo discreto sappiamo che eva non riuscirà ad ottenere i due numeri segreti $x,y$ quindi Alice e Bob possono comunicare in sicurezza le loro informazioni.
+
+\section{Cifrario di Elgamal}
+ElGamal è un sistema di cifratura a chiave pubblica, proposto dal ricercatore egiziano-americano Taher Elgamal nel 1985. Lo schema è basato sulla difficoltà del calcolo del logaritmo discreto.Ci sono tre fasi in questo algoritmo:
+\begin{itemize}
+\item[1] Alice genera e rende nota una chiave pubblica:$Y_{Alice} = (\alpha^{X_{Alice}} \bmod p)$, analogamente Bob genera la sua chiave pubblica:$Y_{Bob} = (\alpha^{X_{Bob}} \bmod p)$ dove:
+\begin{itemize}
+\item p è numero primo grande
+\item $\alpha$ radice primitiva di p
+\item $a$ scelto a caso in maniera uniforme tra $[1,(q-1)]$, che costituisce la chiave privata di Alice e deve essere mantenuto segreto.
+\item $b$ scelto a caso in maniera uniforme tra $[1,(q-1)]$, che costituisce la chiave privata di Bob e deve essere mantenuto segreto.
+\end{itemize} 
+\item[2] Alice vuole inviare un messaggio a Bob, Bob rende disponibile la sua chiave pubblica composta da (p,$\alpha$,$\beta$) dove $\beta = \alpha^b \mod(p)$. Alice recupera queste informazioni e genera $r=\alpha^k\mod p$ e $t=\beta\cdot m \mod(p)$.
+\item[3] Il testo cifrato (r,t) viene inviato a Bob il quale recupera M nel seguente modo: $t\cdot r^b \mod(p) \equiv m$ 
+\end{itemize}
+
+Il procedimento è matematicamente corretto perchè:\\
+$t\cdot r^{-b}=(\beta^k\cdot m)\cdot(\alpha^k)^{-b}=((\alpha^b)^{k}\cdot m)\cdot(\alpha^k)^{-b} = 1 \cdot m$
+
+\subsection{Problematiche di Elgamal}
+Uno sbadato Bob potrebbe usare $b$ per due diversi M, Eva se ne accorge perchè vengono spedite due messaggi con $r$ uguale quindi (Se Eva può fare un attacco Know plaintext):
+$$ \frac{t_1}{M_1}=\beta_k=\frac{t_2}{m_2} \Rightarrow \frac{t_1}{m_1\cdot t_2} = \frac{1}{m_2} $$
+
+\section{Bit Commitment}
+Si utilizza il Bit commitment nel momento in cui Alice vuole rassicurare Bob che ha una informazione senza dare a Bob quest'ultima. Anche in questo caso sfrutto il logaritmo discreto. Scelgo $p,\alpha$ e $x$ dove $x$ è la nostra informazione, poi spedisco $\beta = \alpha^x \mod(p)$ come prova
+
+
 %ho due casi:\\
 %\begin{center}
 %$\begin{cases}
