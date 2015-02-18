@@ -501,13 +501,6 @@ Queste operazioni vengono utilizzate in un ciclo interno nel key schedule per ge
 \item[6] Ogni 4 byte viene generata la chiave di round
 \end{itemize}
 
-
-    
-    
-   
-    
-    
-
 \subsubsection{Matematica di AES}
 In matematica, in particolare in algebra, un campo finito (detto a volte anche campo di Galois) è un campo che contiene un numero finito di elementi.Particolarmente utilizzati in crittografia sono i campi della forma $F_{2^n}$ poiché presentano diversi vantaggi:
 \begin{itemize}
@@ -744,8 +737,27 @@ Quindi facendo così posso capire se x è pari o dispari ma ho ancora uno spazio
 
 $\alpha^x \equiv \beta \mod(p)$ - $N^2\ge p-1 $ - $N=\mathcal{b} \sqrt{p-1} \mathcal{c} +1$\\
 
-Ora creo una lista di potenze di $\alpha$ in questo modo: $\sum_{J=0}^{J=N}$
+Ora creo una lista di potenze di $\alpha$ in questo modo: $\sum_{J=0}^{J=N} \alpha^J$ e successivamente inizio a generare la lista $\beta \cdot \alpha^{-N\cdot K}$ con $0 \leq k \leq N$ fino a quando o non si raggiunge $\alpha^J$ oppure non si trova $\alpha^n \equiv \beta \cdot\alpha^{-N\cdot k}$, se trovo quel valore allora posso sfruttare Fermat, infatti:
+$\alpha^n \equiv \beta \cdot\alpha^{-N\cdot k} \Rightarrow \alpha^n \cdot \alpha^{-N\cdot k} \equiv \beta \Rightarrow \alpha^{j+N\cdot k} \equiv \beta $\\
 
+Ma $j+N\cdot k$ è il valore x che stavamo cercando. Questo attacco va bene fino a $10^20$ cifre poi il tempo di computazione diventa troppo elevato.
+
+\subsection{Attacco Index Calculus}
+Questo tipo di attacco esegue una precomputazione "sperando" che con i conti fatti si possa trovare la il valore di x. Inizio a calcolare "un pò" di $\alpha^{k_n} \equiv y \mod(p)$ con y primo $\leq$ B (valore scelto in base alla macchina). I $K$ che si trovano in questo modo si chiamano base di fattorizzazione.
+\begin{center}
+$\begin{cases}
+\alpha^{k_1} \equiv y^m \mod(p)\\
+\alpha^{k_2} \equiv y^m \mod(p)\\
+.\\
+.\\
+.\\
+\alpha^{k_n} \equiv y^m \mod(p)\\
+\end{cases}
+$\\
+\end{center}
+$\alpha^K = \pi_{j} P_j\mod(p)$\\
+$ \log_{\alpha}(\alpha^k)= \sum_{i} a_i \cdot \log(\alpha)\cdot p_i \mod(p-1)$\\
+Teniamo a mente i conti fatti fino ad ora e 
 %ho due casi:\\
 %\begin{center}
 %$\begin{cases}
