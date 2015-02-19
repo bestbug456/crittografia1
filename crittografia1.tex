@@ -284,9 +284,9 @@ ciphertext = $plaintext^e \mod(n)$\\
 Decifratura:\\
 plaintext: $ciphertext^d \mod(n)$\\ \\
 Esempio:\\
-plaintext = 88, $K_pubblica(187,7), K_privata(p,q,d)$
-ciphertext: $88^7 \mod(187) \Rightarrow 11$\\
-plaintext: $11^23 \mod(187) \Rightarrow 88$\\
+plaintext = 88, $K_{pubblica}(187,7), K_{privata}(p,q,23)$
+ciphertext: $88^{7} \mod(187) \Rightarrow 11$\\
+plaintext: $11^{23} \mod(187) \Rightarrow 88$\\
 Bisogna fare attenzione che il messaggio deve essere al più uguale alla dimensione $n$ se il messaggio è di dimensione più grande si divide in ``parti'' che hanno dimensione $n$
 
 \subsubsection{Dimostrazione corettezza RSA}
@@ -349,7 +349,7 @@ x_1+x_2 = -\frac{b}{a} = b = p+q
 \end{cases}$$\\
 basta quindi trovare i punti dove si annulla l'equazione per trovare p e q.\\
 Esempio:
-$n=221 \phi(n)=192 \\ n-\phi(n)+1=30 \\ x^2-30\cdot x + 221 = 0 \\ x_{1,2}=\frac{+\frac{30}{2}+/- \sqrt{15^2-4\cdot a \cdot c} }{1} \Rightarrow x_1=p=13,x_2=q=17$
+$n=221 \phi(n)=192 \\ n-\phi(n)+1=30 \\ x^2-30\cdot x + 221 = 0 \\ x_{1,2}=\frac{+\frac{30}{2}+/- \sqrt{15^2-a \cdot c} }{1} \Rightarrow x_1=p=13,x_2=q=17$
 \item Un'altro attacco si basa sul recupero parziale della chiave privata $K_p$: se su una chiave di $m$ cifre si riescono a recuperare $\frac{m}{4}$ cifre si riesce a recuperare la chiave nella sua interezza
 \item attacco allo spazio delle chiavi di $d$. Se la condizione $d<\frac{1}{3}\cdot\sqrt[4]{n}$ è falsa allora si è attaccabili
 \item È possibile attaccare RSA tramite la sua implementazione:\\
@@ -757,6 +757,8 @@ Sfruttando il logaritmo discreto Diffie ed Helman hanno sviluppato una tecnica d
 \end{figure}
 
 Nella pratica Alice comunica a Bob due valori $\alpha$ e $p$ successivamente sia Alice che Bob calcolano ognuno un valore $x$ nel caso di Alice e $y$ nel caso di Bob successivamente fanno rispettivamente  $\alpha^x$ e $\alpha^y$ e si scambiano il risultato, successivamente Alice farà $(\alpha^y)^x$ e Bob invece $(\alpha^x)^y$ grazie al problema del logaritmo discreto sappiamo che eva non riuscirà ad ottenere i due numeri segreti $x,y$ quindi Alice e Bob possono comunicare in sicurezza le loro informazioni.
+\subsection{Diffi ed  Helman attack (MITM attack)}
+Se non si fa attenzione è possibile che Eva riesca a fare un attacco di tipo Man In The Middle: infatti se si mandano $\alpha^x$ e $\alpha^y$ senza controlli allora eva può intercettare i due valori di $\alpha$ e sostituirli con un valore $\alpha^z$ in modo che Alice usi la chiave $\alpha^{x\cdot z}$ e Bob $\alpha^{y\cdot z}$ in questo modo Eva può leggere e modificare i messaggi che si inviano Alice e Bob. Per risolvere il problema si firma digitalmente (vedi paragrafo 14) il valore $\alpha^x$ per Alice e $\alpha^y$ per Bob e si invia anche il valore ottenuto con la firma rendendo quindi incredibilmente più difficili questo tipo di attacchi.
 
 \section{Cifrario di Elgamal}
 ElGamal è un sistema di cifratura a chiave pubblica, proposto dal ricercatore egiziano-americano Taher Elgamal nel 1985. Lo schema è basato sulla difficoltà del calcolo del logaritmo discreto.Ci sono tre fasi in questo algoritmo:
@@ -780,8 +782,184 @@ Uno sbadato Bob potrebbe usare $b$ per due diversi M, Eva se ne accorge perchè 
 $$ \frac{t_1}{M_1}=\beta_k=\frac{t_2}{m_2} \Rightarrow \frac{t_1}{m_1\cdot t_2} = \frac{1}{m_2} $$
 
 \section{Bit Commitment}
-Si utilizza il Bit commitment nel momento in cui Alice vuole rassicurare Bob che ha una informazione senza dare a Bob quest'ultima. Anche in questo caso sfrutto il logaritmo discreto. Scelgo $p,\alpha$ e $x$ dove $x$ è la nostra informazione, poi spedisco $\beta = \alpha^x \mod(p)$ come prova
+Si utilizza il Bit commitment nel momento in cui Alice vuole rassicurare Bob che ha una informazione senza dare a Bob quest'ultima. Anche in questo caso sfrutto il logaritmo discreto. Supponiamo che alice abbia svilupatto un'algoritmo che permetta di sapere come finirà una partita, Bob è interessato a comprare l'algoritmo ma non si figa, alice allora sceglie $p,\alpha$ e $x$ dove in un bit di $x$ nascondiamo la nostra informazione sul risultato della partita, poi spedisco $\beta = \alpha^x \mod(p)$ e gli dico che nella posizione $i$ di $x$(che non spedisco subito) si trova l'informazione. A questo punto Bob dopo la partita "chiede" il valore di $x$ Alice consegna a Bob $x$ e Bob verifica facendo $\beta = \alpha^x \mod(p)$. Bob a questo punto dopo la verifica può chiedere o la predizione di un'altra partita oppure può decidere di comprare l'algoritmo ad Alice.
 
+\section{Le funzioni Hash}
+Le funzioni Hash prendono in input un parametro di lunghezza infinita.L'output è di dimensione costante e si chiama Hash o message digest. Le funzioni hash devono essere veloci, devono rispettare il principio di confusion e devono essere one way.
+\subsubsection{Proprietà delle funzioni Hash}
+\begin{itemize}
+\item Pre image persistance: è computazionalmente intrattabile la ricerca di una stringa in input che dia un hash uguale a un dato hash
+\item Second image persistance: è computazionalmente intrattabile la ricerca di una stringa in input che dia un hash uguale a quello di una data stringa
+\item Strongly collision free: è computazionalmente intrattabile la ricerca di una coppia di stringhe in input che diano lo stesso hash
+\item Proprietà di indistinguibilità: non si deve capire se un testo è stato sviluppato in maniera randomica o meno. Ovvero non ci devono essere caratteri "costanti" nella generazione degli hash
+\end{itemize}
+
+La funzione hash fa la compressione del messaggio infatti se ho un messaggio $m$ di $L$ bit e $H(m)$ è di $n$ devo dividere il messaggio a blocchi di n bit, successivamente  xoro colonna per colonna. Il problema è che la forza computazionale si abbassa dato che il messaggio è strutturato, una possibile soluzione è di usare lo shift ciclico. Un esempio di funzione hash che usa il logaritmo discreto è la funzione di Chaun: H(m)=$\alpha^{x_0}\cdot\beta^{x_1}$ con $m=x_0+x_1\mod(q)$ però è lenta come funzione. Sha1 invece usa funzioni molto semplici ripetuti più volte: AND,OR,XOR,NOT e somma mod $2^{32}$ e uno shift finale.
+
+\subsection{SHA1}
+\subsubsection{Prefazione}
+Con il termine SHA si indica una famiglia di cinque diverse funzioni crittografiche di hash sviluppate a partire dal 1993 dalla National Security Agency (NSA) e pubblicate dal NIST come standard federale dal governo degli USA. La sigla SHA sta per Secure Hash Algorithm. La sicurezza di SHA-1 è stata in parte compromessa dai crittoanalisti. Sebbene non siano ancora noti attacchi alle varianti SHA-2, esse hanno un algoritmo simile a quello di SHA-1 per cui sono in atto sforzi per sviluppare algoritmi di hashing alternativi e migliorati. Un concorso aperto per la realizzazione di una nuova funzione SHA-3 venne annunciato nel Federal Register il 2 novembre 2007 dal NIST e attraverso una competizione pubblica, simile a quella adottata per il processo di sviluppo dell'AES, ha portato in data 2 ottobre 2012 ad annunciare come vincitore l'algoritmo Keccak. Opera di un team di analisti italiani e belgi, il Keccak sembra dunque destinato a venire gradualmente incluso e adottato nelle soluzioni di sicurezza informatica più variegate.
+La specifica originale dell'algoritmo fu pubblicata nel 1993 come Secure Hash Standard, FIPS PUB 180, dal NIST. Ci si riferisce spesso a questa versione come SHA-0 per distinguerla dalle successive versioni. Fu ritirata dall'NSA breve tempo dopo la pubblicazione e fu soppiantata da una versione rivista, pubblicata nel 1995 (FIPS PUB 180-1) e solitamente nota come SHA-1. L'SHA-1 differisce dall'SHA-0 unicamente per una sola rotazione di bit nel processo di preparazione del messaggio della sua funzione di compressione ad una via; ciò fu fatto, secondo l'NSA, per correggere un difetto nell'algoritmo originale, il quale riduceva la sicurezza crittografica di SHA-0. Ad ogni modo, l'NSA non fornì nessuna ulteriore spiegazione chiarificante. Sono state in seguito riportate debolezze sia nel codice dell'SHA-0 sia in quello dell'SHA-1. L'SHA-1 pare offrire maggiore resistenza agli attacchi, a supporto dell'asserzione dell'NSA che il cambiamento aumentò la sicurezza.
+L'SHA-1 (così come l'SHA-0) produce un digest di 160 bit da un messaggio con una lunghezza massima di $2^{64}-1$ bit.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.6]{immagini/sha-1.png}
+\end{figure}
+
+\subsubsection{Funzionalità}
+\begin{itemize}
+\item Passo 1 (Imbottitura): Al messaggio originale vengono aggiunti dei bit di "imbottitura" affinché la lunghezza finale del messaggio risulti congruente a 448 modulo 512, così facendo la lunghezza di "messaggio+imbottitura" è pari ad un numero 64bit più piccolo di un multiplo di 512bit.
+\item Passo 2 (Aggiunta lunghezza): Alla sequenza di bit (messaggio+imbottitura) creata durante il passo 1 viene aggiunto un intero unsigned di 64bit contenente la lunghezza del messaggio originale. Alla fine di questi due primi passi otteniamo una sequenza di bit che è un multiplo di 512.
+\item Passo 3 (Inizializzazione del buffer MD): Un buffer di 160bit suddiviso in 5 registri da 32bit ciascuno viene creato per la memorizzazione di alcuni passaggi intermedi. I 5 registri verranno convenzionalmente indicati con (A,B,C,D,E) ed inizializzati con i seguenti valori esadecimali:
+\begin{itemize}
+\item A = 67452301
+\item B = EFCDAB89
+\item C = 98BADCFE
+\item D = 10325476
+\item E = C3D2E1F0
+\end{itemize}
+\item Passo 4 (Elaborazione dei blocchi da 512bit): La sequenza di bit "messaggio+imbottitura+lunghezzaMessaggio" viene divisa in blocchi da 512bit, che identificheremo con Bn con n che va da 0 a L. Il fulcro dell'algoritmo SHA-1 è chiamato compression function ed è formato da 4 cicli di 20 passi cadauno. I cicli hanno una struttura molto simile tra di loro se non per il fatto che utilizzano una differente funzione logica primitiva. Ogni blocco viene preso come parametro di input da tutti e 4 i cicli insieme ad una costante K e i valori dei 5 registri. Alla fine della computazione otterremo dei nuovi valori per A,B,C,D,E che useremo per la computazione del blocco successivo sino ad arrivare al blocco finale F
+\end{itemize}
+
+\subsection{Attacchi a funzioni Hash}
+\subsubsection{L'attacco del compleanno}
+Un attacco del compleanno è un tipo di attacco crittografico utilizzato per la crittanalisi degli algoritmi di cifratura; è così chiamato perché sfrutta i princìpi matematici del paradosso del compleanno nella teoria delle probabilità.L'attacco del compleanno si può riassumere brevemente come segue: data una funzione f, lo scopo dell'attacco è quello di trovare 2 numeri $x_1$,$x_2$ tali che $f(x_1)$=$f(x_2$). Tale coppia di valori $x_1$,$x_2$ è chiamata collisione. Il metodo utilizzato per trovare una collisione è semplicemente quello di valutare la funzione f per differenti valori di input che possono essere scelti casualmente o pseudo-casualmente fino a che non si ottiene lo stesso risultato. A causa del paradosso del compleanno questo metodo può essere molto efficiente: specificatamente, se una funzione f(x) restituisce i valori del suo codominio H con identica probabilità e la dimensione del codominio H (ossia il numero di valori possibili) è sufficientemente grande, dopo aver valutato la funzione per circa 1.25 $\cdot \sqrt H$ differenti argomenti, c'è il 50\% di probabilità di ottenere una coppia di valori distinti $x_1$ e $x_2$ per cui valga f($x_1$) = f($x_2$).\\
+Esempio:\\
+Prendo 100 studenti faccio 2 liste da 30 studenti, con che probabilità avrò due studenti nati nello stesso giorno?\\
+$1-e^{\frac{-r^2}{N}}= 1-e^{\frac{-30^2}{365}}= 0,91$\\
+Analogamente possiamo fare l'attacco a sha1, supponiamo di avere un hash di 60 bit quanto deve essere grande la mia lista per avere il 50\% di probabilità di avere una collisione?
+$1-e^{\frac{-r^2}{n}}=0.5 \Rightarrow r=\sqrt{2^{60}} = 1,07\cdot 10^9 $ questo valore indica la dimensione che deve avere ogni lista. Se volessi fare questo attacco con MD5 dovrei fare una lista di $10^19$, questo dimostra la robustezza di MD5. Il fatto di controllare le due liste è l'attacco baby step - giant step già visto solo che questa volta è probabilistico e non più deterministico
+
+\section{Firma digitale}
+La firma digitale, in informatica, rappresenta l'insieme dei dati in forma elettronica, allegati oppure connessi tramite associazione logica ad altri dati elettronici, utilizzati come metodo di identificazione informatica. Può essere basata su varie tecnologie, tra cui la crittografia a chiave pubblica. Per firmare un messaggio molto semplicemente si calcola l'hash del documento, successivamente si cripta con la propria chiave privata il valore hash ottenuto e infine si allega, tutti possono decriptare il valore usando la chiave pubblica ma solo il "firmatario" è a conoscenza della chiave per firmare (esattamente in maniera opposta alla cifratura asimmetrica: qui tutti hanno la chiave per poter aprire il lucchetto per leggere il messaggio, ma solo io ho il lucchetto per "chiudere" il messaggio). Per verificare la validità della firma si decripta la firma con la chiave pubblica e si fa l'hash del messaggio consegnato, a questo punto si controlla se gli hash sono uguali, in caso negativo si sa che il messaggio è stato modificato. Per evitare l'attacco del compleanno si aggiunge un dettaglio di cui solo il mittente è a conoscenza, in questo modo anche se si avesse il testo senza essere a conoscenza di una particolare modifica risulta più difficile da trovare la collisione. 
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.4]{immagini/digital-signature.png}
+\end{figure}
+
+Esistono 3 tipi di firme: RSA dove si fa$signature = H(m)^{k_p} \mod(n)$ altri due tipi di firma sono quella di Helgamal e DSA. Infine esistono 2 tipi di schemi per le firme:
+\begin{itemize}
+\item Message recovery scheme: Sono un tipo di firma dove è possibile recuperare il messaggio dallo schema stesso
+\item Signature with appendix: il messaggio non è facilmente recuperabile dalla firma, bisogna quindi appendere il messaggio in chiaro.
+\end{itemize}
+
+Le tecniche di scambio della chiave visto fino ad ora rientrano nella categoria Key sharing, esistono altre due categorie: Master-slave dove un server genera una chiave che il client usa e Cerberus Mode dove un client chiede ad una trust-authority di farli da garante, la ta rilascia un certificato grazie al quale si può fare la richiesta al grant, se il grant reputa la ta affidabile allora controcertifica il certificato, a questo punto il client può chiedere al server una risorsa, quest'ultimo verifica la certificazione e la controfirma e se le reputa valide allora concede la risorsa richiesta.
+
+\section{Schemi di condivisione del segreto}
+Sono shcemi che permettono di condividere un segreto tra n persone, in questo modo ognuno ha $\frac{1}{n}$ "pezzo" del segreto. Se ho un messaggio M e lo voglio condividere con n persone ad ognuno darò $m_i=M-r_i$ ad $n-1$ persone e alla ennesima persona darò $M- \sum_{i=1}^{n-1} r_i$. Se si perde un $r_i$ il segreto è perso. Per risolvere il problema si usa la con la condivisione del segreto con soglia, ovvero per riottenere il segreto basta che ci sia una soglia di persone per riottenere il segreto e non tutte le n persone. Per farlo uso il seguente schema:
+\begin{itemize}
+\item N partecipanti
+\item t soglia
+\item genero $s_{t-1}$ numeri casuali
+\item Scelgo un polinomio $s(x)=M+s_1\cdot x+...+s_{t-1}\cdot x^{t-1}$
+\item Ad ogni persona viene dato $P_w(x_w,S(x_w))$ 
+\item Ogni partecipante a un'equazione in t-1 incognite se t persone si riuniscono hanno t equazioni per t-1 incognite, è possibile quindi risolvere il problema e ottenere il segreto
+\end{itemize}
+\section{Curve Ellittiche}
+In crittografia la Crittografia ellittica (in inglese Elliptic Curve Cryptography o anche ECC) è una tipologia di crittografia a chiave pubblica basata sulle curve ellittiche definite su campi finiti. L'utilizzo di questo metodo crittografico è stato proposto da Neal Koblitz e Victor S. Miller nel 1985. Le curve ellittiche vengono usati in due campi: il primo, come già detto, è il campo della cifratura mentre il secondo è il campo dell'attacco ad altri cifrari. Iniziamo a vedere come funziona il processo di cifratura.
+
+\begin{figure}[htbp]
+\includegraphics[scale=0.4]{immagini/curva_ellitica.png}
+\caption{Dati due punti P e Q di una curva ellittica, P+Q si ottiene eseguendo il processo descritto in figura}
+\end{figure}
+
+\subsection{Cifrare usando le curve ellittiche}
+La prima domanda che ci si pone è perchè usare le curve ellittiche? La risposta è semplice: esse permettono di avere la stessa sicurezza di RSA ma con meno bit ($\sim$ 4000 bit per RSA contro $\sim$ 300 bit per le curve ellittiche). Una curva ellittica è una curva piana definita da un'equazione del tipo: $y^2=x^3+a\cdot x^2+b\cdot x+c$ con $a,b,c \in K$, con K non per forza primo (lavoriamo quindi o in $Z_p$ o in $Z_n$). Esistono svariati (ad esempio il NIST) enti che verificano quali curve ellittiche sono adatti a scopi crittografici.\\
+Esempio:\\
+Prendiamo la curva $y^2=x^3+2\cdot x-1 \mod(5)$ e cerchiamo tutti i suoi punti che ammettono soluzioni (quindi che esistono) in $Z_5$.\\
+$x=0$ $y^2=-1 \mod(5) \Rightarrow y=4 \vee y=3$ infatti: $4^2 \mod(5) \equiv -1$ e $3^2 \mod(5) \equiv -1$\\
+$x=1$ $y^2=2 \mod(5)$ non ammette soluzioni in $Z_5$\\
+$x=2$ $y^2=11 \mod(5)\Rightarrow y^2=1 \mod(5) \Rightarrow y=1 \vee y=4$\\
+$x=3$ $y^2=33 \mod(5)\Rightarrow y^2=2\mod(5)$ non ammette soluzioni come per $x=1$\\
+$x=4$ $y^2=72 \mod(5)\Rightarrow y^2=1\mod(5)\Rightarrow y=1 \vee y=4$\\
+Questi sono tutti e soli i punti validi della curva in $\mod(5)$ dove nascondere i punti. Su una curva ellittica ci sono circa $\frac{P}{2}$ punti positivi e $\frac{P}{2}$ punti negativi, dal teorema di Hasse abbiamo una stima più accurata che è di $|N-p-1|<2\cdot\sqrt{p}$ dove N è il numero totale dei punti della retta (in un insieme finito sono finiti) e p è il numero di punti "validi". Una volta scelto il punto il dato viene "nascosto" al suo interno. Successivamente il dato viene poi traslato su un altro punto della curva
+\begin{figure}[htbp]
+\includegraphics[scale=0.3]{immagini/curva_ellittica_punti.PNG}
+\caption{punti della curva ellittica $y^2=x^3-x su Z_{61}$}
+\end{figure}
+
+\subsubsection{Operazioni sulle curve ellittiche}
+Come posso ottenere $P_3$ facendo $P_1+P_2$? Vediamolo con un esercizio:\\
+Trovare $P_3$ dati $P_1(2,9)$ e $P_2(3,10)$ e la curva ellittica $y^2=x^3+73$. Troviamo l'equazione:\\
+$\frac{y-y_1}{y_2-y_1}=\frac{x-x_1}{x_2-x_1} \Rightarrow y=x+7$\\
+Fatto questo troviamo il punto q:\\
+$\begin{cases}
+y=x+7 \\
+y^2=x^3+73
+\end{cases}\Rightarrow
+\begin{cases}
+y=x+7 \\
+x^3-x^2-14\cdot x+24=0
+\end{cases}
+$\\
+So che ne trinomio la somma delle radici deve essere uguale al coefficente del quadrato scambiato di segno quindi:\\
+$x_1+x_2+x_3=-(-1)^2 \Rightarrow x_3=-4$\\
+Si noti che $x_1,x_2$ sono noti essi sono infatti le $x$ dei punti $P_1$ e $P_2$. Torniamo ora al calcolo di q\\
+$\begin{cases}
+y=3 \\
+x=-4
+\end{cases}\Rightarrow Q(-4,3)$\\
+
+a questo punto per ottenere $P_3$ basta traslare il punto $Q$ quindi $P_3(-4,-3)$. Se volessi calcolare $P_3+P_3$ come faccio? Basta calcolarsi la retta tangente: $y-y_3=m\cdot(x-x_3)$. Troviamo m:\\
+
+$2y\delta y=3x^2\delta x \Rightarrow \frac{\delta y}{\delta x} = \frac{3x^2}{2y} \Rightarrow m=-8$
+
+Quindi $y=8\cdot(x+4)-3$ metto a sistema con la curva e ottengo:\\
+$x_1+x_2+x_3=-(-64) \Rightarrow x_3=72, y_3=611$ (Questa volta $x_1=x_2=x_{p_3}$
+
+Quindi $P_4$ è formato dalle coordinate: (72,611).\\
+La sottrazione tra due punti $P_1(x_1,y_1)$ e $P_2(x_2,y_2)$ equivale a fare $P_1(x_1,y_1)+P_2(x_2,-y_2)$. La somma ha inoltre la proprietà invariantiva e commutativa.\\
+Se abbiamo a=0, quindi non abbiamo il termine di secondo grado, abbiamo una forumal rapida per calcolare $x_3$, $y_3$ e $m$:\\
+$y^2=x^3+bx+c$ $P_1(x_1,y_1)$ $P_2(x_2,y_2)$\\
+$x_3=m^2-x_1-x_2$
+$y_3=m\cdot(x_1-x_2)-y_1$
+
+m=$
+\begin{cases}
+\frac{y-y_1}{y_2-y_1}=\frac{x-x_1}{x_2-x_1} se P_1 \not= P_2\\
+\frac{3\cdot x_1^2+b}{2\cdot y_1} se P_1 = P_2
+\end{cases}$
+
+è per questo che se cifro uso il campo $Z_p$ con p primo: così sono sempre sicuro di avere l'inverso.
+
+\subsection{Attaccare i cifrari usando le curve ellittiche}
+Se non lavoro su $Z_p$ Lenstra ha scoperto (e dimostrato) che succede una cosa molto interessante: se si prende come $Z_n$ la chiave pubblica di RSA e si inizia a fare $P_n+P_n$ a un certo punto potrei trovare un fattore non invertibile (detto anche fattore non banale) in quel caso si è trovato p o q. Questo attacco è più veloce di un bruteforce ma è attuabile solo sotto i 1000 bit di chiave.
+
+\subsection{Logaritmo discreto sulle curve ellittiche}
+Il logaritmo discreto prevede di moltiplicare un determinato valore $\alpha$ per $x$ volte, sulle curve ellittiche invece avrò il valore $\alpha$ \textit{sommato} per $x$ volte. Questo problema è molto più difficile del primo infatti l'unico attacco che funziona, in specifici casi, del logaritmo discreto sulle curve ellittiche è Pohlig-Hellman\footnote{Si veda Crittosistemi basati su Curve Ellittiche capitolo 3.3 - università degli studi di Salerno: http://www.di.unisa.it/professori/ads/corso-security/www/CORSO-0001/ECC/index.htm}. C'è però un problema nell'utilizzo delle curve ellittiche per il logaritmo discreto: bisogna verificare che il mio messaggio possa appartenere alla retta sia accettabile per la mia richiesta. Il margine di errore è definito con $\frac{1}{2^k}$ (metodo di Koblitz) dove $k$ è il margine di errore massimo accettabile, se la curva non lo rispetta bisogna cercarne un'altra.\\
+Esempio:\\
+Prendere $m$ e una curva ellittica EC e K tc $(m+1)\cdot k < p$ quindi generare $x$ tc $x=m\cdot k +j$ con
+$0\leq j < K$\\
+
+$y^2=x^3+2\cdot x+7 \mod(179)$\\
+$k=10$\\
+probabilità di errore: $\frac{1}{2^10}$\\
+messaggio: $m=5$\\
+Verifico che $(m+1)\cdot k < p \Rightarrow 60<179$ quindi va bene come curva.\\
+Cerco ora un x che possa generare un valore y che appartiene alla curva:\\
+$\begin{cases}
+x=5\cdot10+0\\
+x=5\cdot10+1\\
+x=5\cdot10+2\\
+...
+x=5\cdot10+9
+\end{cases}
+$
+
+Noto che $x=5\cdot10+1$ ha una soluzione accettabile ($y=121$) quindi uso il punto $P(51,121)$ per cifrare il messaggio. Per riottenere il messaggio devo dividere il valore per K e prendere il valore sempre per difetto (infatti $\frac{51}{10} = 5.1 = 5$ e il nostro messaggio iniziale era 5)
+\subsection{Il punto all'infinito}
+Nelle curve ellittiche esiste il punto all'infinito: è un punto che fa sempre parte dei punti p che "vanno bene" e lo si ottiene quando il coeficente angolare $m$ non esiste. Ho due domande sul punto all'infinito, la prima è quanto velocemente lo raggiungo mentre la seconda e cosa rappresenta il punto all'infinito. Iniziamo con rispondere alla seconda domanda: se la retta va all'infinito allora so che il suo m formato da MCD(b,n)$\not=$1 quindi ho trovato p oppure q. Risulta chiaro che come attaccante a me interessa trovare quel particolare valore di m, quello che so è che m è un divisore di N(che è il valore del modulo) e così anche i suoi multipli, ricado però nella fattorizzazione di un numero N molto grande l'unica speranza è che N sia liscio se infatti m va all'infinito allora N è liscio rispetto alla curva, se n non va all'infinito allora cambio curva. Questo attacco è vantaggioso fino a 40-50 cifre
+\subsection{Curve ellittiche con diffie ed Helman}
+Supponiamo che Alice e Bob vogliano comunicarsi una chiave segreta di un cifrario simmetrico usando DH e le curve ellittiche devono fare i seguenti passi:\\
+\begin{itemize}
+\item scegliere un campo e una curva in comune
+\item Alice sceglie un punto G appartenente alla curva e lo comunica a Bob
+\item Sia Alice che Bob calcolano $G\cdot n$ dove n è il loro numero segreto e si comunicano entrambi il risultato, a questo punto Alice moltiplicherà il numero di bob per il suo numero segreto, in maniera analoga Bob.
+\item a questo punto entrambi condividono un punto in comune sulla curva a questo punto si converte il punto trovato in una chiave.
+\end{itemize} 
+Notare che anche in questo caso si è attaccabili tramite MITM.
+
+Per maggiori informazioni sulle curve ellittiche si consulti "crittografia su curve ellittiche" http://www.di.unipi.it/~annab/CRI14/ECC.pdf
 
 %ho due casi:\\
 %\begin{center}

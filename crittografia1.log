@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  18 FEB 2015 11:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.2.9)  19 FEB 2015 15:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -536,11 +536,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 282--291
  []
 
 
-Overfull \hbox (6.4187pt too wide) in paragraph at lines 282--291
-\OT1/cmr/m/n/10 plaintext = 88, $\OML/cmm/m/it/10 K[]ubblica\OT1/cmr/m/n/10 (18
-7\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 7)\OML/cmm/m/it/10 ; K[]rivata\OT1/cmr/m/n/
-10 (\OML/cmm/m/it/10 p; q; d\OT1/cmr/m/n/10 )$ ci-pher-text: $88[][]  (187) \OM
-S/cmsy/m/n/10 )
+Overfull \hbox (0.81981pt too wide) in paragraph at lines 282--291
+\OT1/cmr/m/n/10 plaintext = 88, $\OML/cmm/m/it/10 K[]\OT1/cmr/m/n/10 (187\OML/c
+mm/m/it/10 ; \OT1/cmr/m/n/10 7)\OML/cmm/m/it/10 ; K[]\OT1/cmr/m/n/10 (\OML/cmm/
+m/it/10 p; q; \OT1/cmr/m/n/10 23)$ ci-pher-text: $88[][]  (187) \OMS/cmsy/m/n/1
+0 )
  []
 
 
@@ -755,22 +755,88 @@ Underfull \hbox (badness 10000) in paragraph at lines 740--742
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 750--751
+
+ []
+
 <immagini/scambioChiavi.png, id=132, 400.49625pt x 601.24625pt>
 File: immagini/scambioChiavi.png Graphic file (type png)
 
 <use immagini/scambioChiavi.png>
-Package pdftex.def Info: immagini/scambioChiavi.png used on input line 755.
+Package pdftex.def Info: immagini/scambioChiavi.png used on input line 756.
 (pdftex.def)             Requested size: 240.29959pt x 360.75052pt.
  [29] [30 <./immagini/scambioChiavi.png>]
-[31] (./crittografia1.aux) ) 
+[31] [32] <immagini/sha-1.png, id=147, 366.36874pt x 381.425pt>
+File: immagini/sha-1.png Graphic file (type png)
+
+<use immagini/sha-1.png>
+Package pdftex.def Info: immagini/sha-1.png used on input line 806.
+(pdftex.def)             Requested size: 219.82294pt x 228.85675pt.
+
+Overfull \hbox (9.05624pt too wide) in paragraph at lines 812--813
+[]\OT1/cmr/m/n/10 Passo 2 (Ag-giun-ta lun-ghez-za): Al-la se-quen-za di bit (me
+s-sag-gio+imbottitura)
+ []
+
+[33 <./immagini/sha-1.png>] [34]
+<immagini/digital-signature.png, id=155, 803.0pt x 602.25pt>
+File: immagini/digital-signature.png Graphic file (type png)
+
+<use immagini/digital-signature.png>
+Package pdftex.def Info: immagini/digital-signature.png used on input line 837.
+
+(pdftex.def)             Requested size: 321.1943pt x 240.89572pt.
+ [35 <./immagini/digital-signature.png>]
+<immagini/curva_ellitica.png, id=160, 428.60126pt x 601.24625pt>
+File: immagini/curva_ellitica.png Graphic file (type png)
+
+<use immagini/curva_ellitica.png>
+Package pdftex.def Info: immagini/curva_ellitica.png used on input line 862.
+(pdftex.def)             Requested size: 171.43745pt x 240.49423pt.
+
+<immagini/curva_ellittica_punti.PNG, id=161, 827.09pt x 576.1525pt>
+File: immagini/curva_ellittica_punti.PNG Graphic file (type png)
+
+<use immagini/curva_ellittica_punti.PNG>
+Package pdftex.def Info: immagini/curva_ellittica_punti.PNG used on input line 
+877.
+(pdftex.def)             Requested size: 248.1289pt x 172.84708pt.
+ [36] [37 <./immagini/curva_ellitica.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 882--902
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 903--904
+
+ []
+
+[38 <./immagini/curva_ellittica_punti.PNG>]
+Underfull \hbox (badness 3118) in paragraph at lines 929--929
+[][]\OT1/cmr/m/n/8 Si ve-da Crit-to-si-ste-mi ba-sa-ti su Cur-ve El-lit-ti-che 
+ca-pi-to-lo 3.3 - uni-ver-sit^^Ra de-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 929--933
+
+ []
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 953--954
+
+ []
+
+[40] (./crittografia1.aux) ) 
 Here is how much of TeX's memory you used:
- 3529 strings out of 494417
- 45716 string characters out of 6165016
- 114342 words of memory out of 5000000
- 6693 multiletter control sequences out of 15000+600000
+ 3550 strings out of 494417
+ 46305 string characters out of 6165016
+ 117342 words of memory out of 5000000
+ 6709 multiletter control sequences out of 15000+600000
  11955 words of font info for 47 fonts, out of 8000000 for 9000
  372 hyphenation exceptions out of 8191
- 37i,8n,24p,1228b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,8n,24p,1333b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
@@ -789,10 +855,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on crittografia1.pdf (31 pages, 909010 bytes).
+Output written on crittografia1.pdf (40 pages, 1043402 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
+ 243 PDF objects out of 1000 (max. 8388607)
+ 149 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
