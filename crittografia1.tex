@@ -12,7 +12,7 @@
 \begin{document}
 \maketitle
 \section{Prefazione}
-La crittografia è lo studio e progettazione di algoritmi , assieme alla crittoanalisi (studio della forza di un crifrario) forma la crittologia. La crittografia fa parte della teoria dei codici: tecniche utilizzate per trasmettere e memorizzare le informazioni su un canale rumoroso. Nello specifico la crittografia dice come rendere sicuro questo canale. Nelle analisi che andremmo a fare sui vari cifrari avremo una situazione in cui alice e bob cercano di comunicarsi un messaggio mentre eva vuole impossersarsi del messaggio.
+La crittografia è lo studio e progettazione di algoritmi , assieme alla crittoanalisi (studio della forza di un cifrario) forma la crittologia. La crittografia fa parte della teoria dei codici: tecniche utilizzate per trasmettere e memorizzare le informazioni su un canale rumoroso. Nello specifico la crittografia dice come rendere sicuro questo canale. Nelle analisi che andremmo a fare sui vari cifrari avremo una situazione in cui Alice e Bob cercano di comunicarsi un messaggio mentre Eva vuole impossersarsi del messaggio.
 
 \begin{figure}[htbp]
 \includegraphics[scale=0.4]{immagini/eve1.png}
@@ -21,17 +21,17 @@ La crittografia è lo studio e progettazione di algoritmi , assieme alla crittoa
 \subsection{Principio di Kerkof (1800)}
  ``l'attaccante sa tutto tranne la chiave e il contenuto del messaggio.''\\
 Questo principio vuole far notare che un cifrario è forte solo se non usa dati al di fuori della chiave per crittare il messaggio. Si predilige inoltre un cifrario aperto in modo che si possa analizzare e capire se e dove ci sono le debolezze
-
+\newpage
 \subsection{Modalità di attacco}
 Eva generalmente ha 4 modalità di attacco:\\
 \begin{itemize}
 \item Ciphertex only: eva ha solo il testo cifrato e prova a decifrarlo fino ad ottenere un testo sensato
 \item Known plaintext: eva ha il plaintext e il suo testo cifrato
-\item Choosen plaintext: eva sceglie che info cifrare in modo da cercare casi particolari
-\item Choosen Ciphertex: eva può decifrare del testo inventato da lei in cerca di casi particolari
+\item Chosen plaintext: eva sceglie che info cifrare in modo da cercare casi particolari
+\item Chosen Ciphertex: eva può decifrare del testo inventato da lei in cerca di casi particolari
 \end{itemize}
 \subsection{Tipi di cifrari}
-Prima del 1970 esistono 2 tipi di cifrari simmetrici e la steganografia, successivamente nascono i cifrari asimmetrici. Questi ultimi sono meno veloci rispetto a quelli simmetrici. Un metro di valutazione efficace per valutare un cifrario è la sua resistenza all'attacco di tipo forza bruta (provando tutte le combinazioni possibili quanto ci metto mediamente ad "indovinare" la chiave?). La soluzione possibile per risolvere questo attacco è di aumentare la chiave per multipli di 8 bit.
+Prima del 1970 esistono 2 tipi di cifrari: cifrari di tipo simmetrico e la steganografia, successivamente nascono i cifrari asimmetrici. Questi ultimi sono meno veloci rispetto a quelli simmetrici ma più difficile da attaccare. Un metro di valutazione efficace per valutare un cifrario è la sua resistenza all'attacco di tipo forza bruta (provando tutte le combinazioni possibili quanto ci metto mediamente ad "indovinare" la chiave?). La soluzione possibile per risolvere questo attacco è di aumentare la chiave per multipli di 8 bit.
 
 \section{cifrari storici}
 \subsection{cifrari monoalfabetici a sostituzione}
@@ -43,10 +43,10 @@ $y=(x+k)\mod26$
 Vediamo ora come si può attaccare questo cifrario:\\
 \textbf{Attacco Ciphertex only}: provo tutti i K fino a quando non riesco ad ottenere un plaintext sensato
 \textbf{Attacco known plaintext}: sapendo che la lettera 't' è stata codificata con 'd' e sapendo che 't' è 19 e 'd' è 3 posso ottenere k:\\
-$$(19+k)\mod26 = 3\mod26 \rightarrow k=10$$
-\textbf{Attacco choosen plaintext}: dato che A è stato codificato con 1 cifro il testo 'A' e ottengo direttamente la chiave
-\textbf{choosen Ciphertex}: provo a decrittare 'A' e ottengo -k
-\subsubsection{Quadrato di polimio}
+$$(19+k)\mod26 = 3\mod26 \rightarrow k=10$$\\
+\textbf{Attacco chosen plaintext}: dato che A è stato codificato con 1 cifro il testo 'A' e ottengo direttamente la chiave\\
+\textbf{chosen Ciphertex}: provo a decrittare 'A' e ottengo -k
+\subsubsection{Quadrato di polibio}
 Si tratta di un quadrato $5 \times 5$
 
 La scacchiera originale è costituita da una griglia composta da 25 caselle ordinate in cinque righe ed altrettante colonne. Le lettere dell'alfabeto vengono inserite da sinistra a destra e dall'alto in basso. Le righe e le colonne sono numerate: tali numeri sono gli indici o "coordinate" delle lettere costituenti il messaggio in chiaro:
@@ -76,7 +76,7 @@ Risulta molto simile a cesare solo che lo zero non si trova in 0 ma in q:
 $$y=(mx+q)\mod26$$
 
 Esempio: $y=9\cdot7+2\mod26 \leftarrow13$
-Risulta quindi necesaria l'esistenza dell'\textbf{inverso moltiplicativo} in $Z_n$. Questa condizione è "gratis" se si lavora in un campo (con n numero primo) dove ho sempre l'inverso, se si lavora in un anello infatti non è detto che l'inverso esista sempre. Esiste una CNS se non si vuole usare un campo: se n e x sono coprimi (ovvero MCD(n,x)=1), dato che solitamente un campo $Z_n$ n è primo questa condizione è sempre verificata.
+Risulta quindi necesaria l'esistenza dell'\textbf{inverso moltiplicativo} in $Z_n$. Questa condizione è "gratis" se si lavora in un campo (con n numero primo) dove ho sempre l'inverso, se si lavora in un anello infatti non è detto che l'inverso esista sempre. Esiste una CNS se non si vuole usare un campo: se n e x sono coprimi (ovvero MCD(n,x)=1), allora esiste sempre l'inverso moltiplicativo.Da notare che nel caso di n primo la condizione è comunque verificata.
 L'esempio precedente decifro y nel seguente modo:
 
 $$x=\frac{1}{9}\cdot(y-2)\mod26$$
@@ -84,9 +84,9 @@ $$x=3\cdot(y-2)\mod26$$
 $$x=7$$
 
 l'inverso di $\frac{1}{9}$ lo si ottiene nel seguente modo:
-$$9\cdot=1\mod26$$
+$$9\cdot x\equiv 1\mod26$$
 $$x=3$$
-
+\newpage
 \textbf{Attacco know plaintext} \\
 Sappiamo che if(8,5)$\rightarrow$pq(15,16) allora:\\
 $
@@ -100,9 +100,8 @@ k=17\\
 h=9
 \end{cases}
 $
-\newpage
 \subsubsection{Problema analisi delle frequenze per i cifrari affini}
-In questo tipo di cifrario si sfrutta la debolezza dell'alfabeto di riferimento (sappiamo che alcune lettere si ripetono con più frequenza se il plaintext è in italiano rispetto allo stesso plaintext di riferimento)
+In questo tipo di cifrario si sfrutta la debolezza dell'alfabeto di riferimento (sappiamo che alcune lettere si ripetono con più frequenza se il plaintext è in italiano rispetto allo stesso plaintext di riferimento in inglese)
 \begin{figure}[htbp]
 \includegraphics[scale=0.8]{immagini/Frequenze-alf_it.png}
 \caption{frequenze delle lettere nell'alfabeto italiano}
@@ -125,11 +124,11 @@ Il testo cifrato si ottiene spostando la lettera chiara di un numero fisso di ca
 \subsubsection{Debolezza del Cifrario di Vigenere: l'attacco di Kasinski}
 Sfrutta l'attacco delle analisi delle frequenze dividendo il testo cifrato in n sottoistanze. Per far ciò si possono utilizzare metodi statistici per trovare n, e successivamente applicare l'analisi delle frequenze a ciascun alfabeto cifrante. Ovvero, se abbiamo come chiave VERME, basta operare l'analisi delle frequenze per tutte le lettere crittate dalla V, poi per quelle crittate dalla E, ecc. Perciò, la prima, la sesta, l'undicesima, ecc. lettera avranno lo stesso alfabeto cifrante. La parte più complicata sta dunque nello scoprire la lunghezza della chiave cifrante anche se la cosa non è impossibile. Nel testo cifrato infatti, se la chiave utilizzata è breve, vi saranno probabilmente delle serie di lettere ripetute. Queste serie di lettere, se abbastanza lunghe (5-6 caratteri), saranno generate probabilmente dalla stessa parola in chiaro. Basterà allora calcolare la distanza tra una parola e l'altra e la lunghezza della ripetizione per risalire alla lunghezza n della chiave. Così facendo si può capire quali lettere usano il primo alfabeto cifrante, quali il secondo, e così via procedendo poi con l'analisi delle frequenze per ciascun alfabeto.
 
-\subsubsection{Cifrario di Gardano}
+\subsubsection{Cifrario di Cardano}
 Risulta essere come Vigenere solo che la chiave è formata da chiave+plaintext. Ha come vantaggio una maggiore resistenza all'attacco di Kasinski
 
 \subsubsection{Cifrario Playfair}
-La tecnica cifra coppie di lettere (digrafi), invece che una singola lettera come nel semplice cifrario a sostituzione di Vigenère allora in uso. Playfair è quindi significativamente più difficile da forzare poiché l'analisi delle frequenze usata per i semplici cifrari a sostituzione non funzionano con esso. L'analisi delle frequenze può essere ancora intrapreso, ma sono possibili 600 digrafi [1] invece di 26 monografi. L'analisi della frequenza dei digrafi è possibile, ma considerevolmente più difficile. Inoltre le frequenze relative delle singole lettere hanno un intervallo molto più ampio di quello dei digrafi, rendendo l’analisi delle frequenze ulteriormente complicata. Per questi motivi, a suo tempo, il codice Playfair era considerato inviolabile.
+La tecnica cifra coppie di lettere (digrafi), invece che una singola lettera come nel semplice cifrario a sostituzione di Vigenère allora in uso. Playfair è quindi significativamente più difficile da forzare poiché l'analisi delle frequenze usata per i semplici cifrari a sostituzione non funzionano con esso. L'analisi delle frequenze può essere ancora intrapreso, ma sono possibili 600 digrafi invece di 26 monografi. L'analisi della frequenza dei digrafi è possibile, ma considerevolmente più difficile. Inoltre le frequenze relative delle singole lettere hanno un intervallo molto più ampio di quello dei digrafi, rendendo l’analisi delle frequenze ulteriormente complicata. Per questi motivi, a suo tempo, il codice Playfair era considerato inviolabile.
 
 \subsubsection{cifrario ADFGX}
 
@@ -138,7 +137,7 @@ Nella primavera del 1918 le truppe tedesche stavano pianificando una serie di at
 \subsection{cifrari a blocchi}
 \subsubsection{cifrario di Hill (1929)}
 È il primo cifrario che introduce l'algebra lineare e modulare.\\
-Nella cifratura, ogni lettera è per prima cosa codificata in numero. Lo schema usato più di frequente è semplicemente: A = 0, B = 1, ..., Z = 25, ma questa non è una caratteristica essenziale del cifrario. Un blocco n di lettere è quindi considerato come uno spazio vettoriale di dimensione n, e moltiplicato per una matrice n x n, modulo 26 (se si usa un numero più alto di 26 nel modulo base, allora si può usare uno schema numerale diverso per codificare le lettere, ed è possibile anche utilizzare spazi e punteggiatura). L'intera matrice è considerata la chiave del cifrario e deve essere casuale, a patto che sia invertibile in $\mathbb{Z}_{26}^n$ (per assicurare che la decrittazione sia possibile). Considerando il messaggio 'TUO' e la seguente chiave (che in lettere sarebbe Y Y P R Z W I Z J):
+Nella cifratura, ogni lettera è per prima cosa codificata in numero. Lo schema usato più di frequente è semplicemente: A = 0, B = 1, ..., Z = 25, ma questa non è una caratteristica essenziale del cifrario. Un blocco n di lettere è quindi considerato come uno spazio vettoriale di dimensione n, e moltiplicato per una matrice n $\times$ n, modulo 26 (se si usa un numero più alto di 26 nel modulo base, allora si può usare uno schema numerale diverso per codificare le lettere, ed è possibile anche utilizzare spazi e punteggiatura). L'intera matrice è considerata la chiave del cifrario e deve essere casuale, a patto che sia invertibile in $\mathbb{Z}_{26}^n$ (per assicurare che la decrittazione sia possibile). Considerando il messaggio 'TUO' e la seguente chiave (che in lettere sarebbe Y Y P R Z W I Z J):
 
     $$\begin{pmatrix} 24 & 24 & 15 \\ 17 & 25 & 22 \\ 08 & 25 & 09 \end{pmatrix} $$
 
@@ -179,7 +178,7 @@ Gli LFSR possono essere implementati in hardware, e ciò li rende utili in appli
 Il Global Positioning System (GPS) usa gli LFSR per trasmettere rapidamente una sequenza che indica degli istanti relativi ad alta precisione, sfruttandone il determinismo: basta infatti trasmettere il seme utilizzato nel trasmettitore e la sequenza generata sarà identica anche sul ricevitore.
 
 \section{Problemi difficilmente risolubili}
-Come vedremo prossimamente i cifrari moderni sono considerati sicuri non quanto per la complessità delle loro operazioni ma dalla difficoltà di fattorizzare (trovare i numeri primi il cui prodotto forma il numero) i numeri "grandi" in poco tempo. Vediamo ora alcuni teoremi a riguardo.
+Come vedremo prossimamente i cifrari moderni sono considerati sicuri non quanto per la complessità delle loro operazioni ma dalla difficoltà di fattorizzare i numeri (trovare i numeri primi il cui prodotto forma il numero in questione) "grandi" in poco tempo. Vediamo ora alcuni teoremi a riguardo.
 
 \subsection{Teorema dei numeri primi}
 Se $\pi(x)$ è il numero di numeri primi minori di x allora:
@@ -187,7 +186,7 @@ $$\pi(x) \sim \frac{x}{\log x}$$
 Ovvero che ci sono ``tanti'' numeri primi
 \begin{itemize}
 \item Ogni intero positivo è prodotto di numeri primi, questa fattorizazione è unica a meno dell'ordine dei fattori
-\item Si usa l'algoritmo di euclide: il resto che precede lo 0 è il MCD(a,b)
+\item Si usa l'algoritmo di euclide: il resto che precede lo 0 è il MCD(a,b), se è 1 allora i due numeri sono coprimi
 \end{itemize}
 Esempio:\\
 $\text{MCD} (1180,482) \rightarrow
@@ -208,11 +207,11 @@ Siano a,b due interi non nulli e sia d=mcd(a,b) allora esistono due interi x e y
 \subsection{Algoritmo di Euclide esteso}
 Precondizione:\\
 Se MCD(a,n)=1 $\exists$ inverso
-$a \cdot s+n \cdot t = 1 \mod n$\\
+$a \cdot s+n \cdot t \equiv 1 \mod n$\\
 $a \cdot s \equiv 1 \mod n$
 
 \subsection{Teorema cinese dei resti}
-Si usa il teorema cinese dei resti per velocizare i conti in modulo. Serve per spezzare una congruenza $\mod (n)$ in un sistema di congruenze in $\mod(fattori di n)$.
+Si usa il teorema cinese dei resti per velocizare i conti in modulo. Serve per spezzare una congruenza $\mod (n)$ in un sistema di congruenze in $\mod$(fattori di n).
 \textbf{definizione}: siano m ed n due interi positivi tc $mdc(m,n)=1$ dati a,b interi $\exists$ soluzione x(con $\! \! \! \mod(m\cdot n)$) del sistema di congruenze:
 
 $\begin{cases}
@@ -250,7 +249,7 @@ Dato n:\\
 \end{itemize}
 \section{Cifrari a chiave asimmetrica}
 \subsection{Prefazione}
-Nati nel 1970 nascono i cifrari con chiave asimmetrica, che dove ci si ritrova per la prima volta con due chiavi: una pubblica che consegnero ad alice per cifrare il messaggio e una privata che la userò per decifrare il messaggio. Idealmente:
+Nati nel 1970 nascono i cifrari con chiave asimmetrica, che dove ci si ritrova per la prima volta con due chiavi: una pubblica che consegnero ad Alice per cifrare il messaggio e una privata che la userò per decifrare il messaggio. Idealmente:
 \begin{itemize}
 \item Alice chiede a Bob di spedirle il suo lucchetto, già aperto. La chiave dello stesso verrà però gelosamente conservata da Bob.
 \item Alice riceve il lucchetto e, con esso, chiude il pacco e lo spedisce a Bob.
@@ -262,8 +261,8 @@ Nati nel 1970 nascono i cifrari con chiave asimmetrica, che dove ci si ritrova p
 \end{figure}
 
 Un'altro vantaggio di usare la crittografia asimetrica è la riduzione del numero di chiavi, vediamolo con un esempio:\\
-
 Se 10 persone volessero comunicare in maniera simmetrica ho $\binom{10}{2} = 45$ chiavi. Nel caso assimetrico invece ho solo 20 chiavi. Le chiavi sono di meno nel caso di grandi numeri mentre con piccoli numeri risultano essere di meno quello simmetriche. Con i cifrari asimmetrici il ciphertext è computazionalmente intrattabile.
+\newpage
 \subsection{RSA}
 Il funzionamento di RSA è molto semplice: basta infatti eseguire una potenza in modulo. Vediamo ora i passi nel dettaglio
 \subsubsection{Generazione della chiave}
@@ -300,7 +299,7 @@ $(ciphertext)^d \mod(n) \equiv ((plaintext)^e)^d \mod(n) \equiv plaintext^{e\cdo
 Vogliamo ora riscrivere $e \cdot d$ in una maniera più comoda, sfruttiamo quindi la funzione di Eulero tenendo a mente 3 cose:\\
 \begin{itemize}
 \item[1)]$\phi(n) = \phi(p\cdot q) = (p-1)\cdot(q-1)$
-\item[2)]$e\cdot d = 1 \cdot \mod(\phi(n))$
+\item[2)]$e\cdot d \equiv 1 \cdot \mod(\phi(n))$
 \item[3)]$e\cdot d = 1 \cdot K\cdot \phi(n)$
 \end{itemize}
 Riscriviamo ora $e \cdot d$:\\
@@ -330,9 +329,7 @@ $\\
 Se siamo nel primo caso p e m non sono coprimi ma dato che p è primo allora sicuramente m è un multiplo di p quindi:\\
 $m\equiv 0 \mod(p) \Rightarrow (m)^{k\cdot(p-1)\cdot(q-1)+1}\mod(p)\equiv m \mod(p)  \forall e,d$\\
 Se invece siamo nel secondo caso allora:\\
-$m^{(p-1)} \equiv 1 \mod(p) \Rightarrow [m^{(p-1)}]^{k\cdot (q-1)}\cdot m \mod(p) \equiv m $ Dato che 1 è l'elemento neutro della moltiplicazione (così come le sue potenze) $ \Rightarrow 1^{k\cdot (q-1)}\cdot m \mod(p) \equiv 1^{k\cdot(q-1)}\cdot m$
-
-La seconda congruenza si risolve come la prima, e dato che anche q è primo
+$m^{(p-1)} \equiv 1 \mod(p) \Rightarrow [m^{(p-1)}]^{k\cdot (q-1)}\cdot m \mod(p) \equiv m $ \\Dato che 1 è l'elemento neutro della moltiplicazione (così come le sue potenze) $ \Rightarrow 1^{k\cdot (q-1)}\cdot m \mod(p) \equiv 1^{k\cdot(q-1)}\cdot m$. La seconda congruenza si risolve come la prima, e dato che anche q è primo.
 
 $$(m)^{K \cdot \phi(n)+1}\mod(n) \equiv m \mod(n) $$
 $$(m)^{K \cdot \phi(n)+1} - m\mod(n) \equiv 0 \mod(n)$$
@@ -353,27 +350,28 @@ $n=221 \phi(n)=192 \\ n-\phi(n)+1=30 \\ x^2-30\cdot x + 221 = 0 \\ x_{1,2}=\frac
 \item Un'altro attacco si basa sul recupero parziale della chiave privata $K_p$: se su una chiave di $m$ cifre si riescono a recuperare $\frac{m}{4}$ cifre si riesce a recuperare la chiave nella sua interezza
 \item attacco allo spazio delle chiavi di $d$. Se la condizione $d<\frac{1}{3}\cdot\sqrt[4]{n}$ è falsa allora si è attaccabili
 \item È possibile attaccare RSA tramite la sua implementazione:\\
-So che RSA generalmente viene usato per cifrare piccoli testi di $\sim$ 8 caratteri il dominio è quindi di $\sim 10^17$ ma il mio testo \textit{m} è possibile scriverlo come $m=a\cdot b$ con $a,b\le 10^9$ quindi posso lavorare su uno spazio di $10^9$. Genero ora una tabelle nel seguente modo:
+So che RSA generalmente viene usato per cifrare piccoli testi di $\sim$ 8 caratteri il dominio è quindi di $\sim 10^{17}$ ma il mio testo \textit{m} è possibile scriverlo come $m=a\cdot b$ con $a,b\le 10^9$ quindi posso lavorare su uno spazio di $10^9$. Genero ora una tabelle nel seguente modo:
 \begin{center}
 \begin{tabular}{c|c}
 $C\cdot x^{-e} \mod(n)$& 	$y^e \mod(n)$ \\
 \hline
-$C\cdot 1^e \mod(n)$& 	$1^e \mod(n)$ \\
-$C\cdot 2^e \mod(n)$& 	$2^e \mod(n)$ \\
+$C\cdot 1^{-e} \mod(n)$& 	$1^e \mod(n)$ \\
+$C\cdot 2^{-e} \mod(n)$& 	$2^e \mod(n)$ \\
 .&.\\
-$C\cdot i^e \mod(n)$& 	$i^e \mod(n)$  \\
+$C\cdot i^{-e} \mod(n)$& 	$i^e \mod(n)$  \\
 .&.\\
-$C\cdot (10^9)^e \mod(n)$& 	$(10^9)^e \mod(n)$ \\
+$C\cdot (10^9)^{-e} \mod(n)$& 	$(10^9)^e \mod(n)$ \\
 \end{tabular}\\
+\end{center}
 supponiamo che nel caso $i$ il valore a destra e sinistra sia uguale allora possiamo dire che:
 $$ C\cdot i^{-e} \mod(n)=i^e \mod(n)$$
-$$ C=i^e\cdot i^e \mod n$$
+$$ C=i^{-e}\cdot i^e \mod n$$
 $$ C=(i\cdot i)^e \mod n$$\\
 Ma noi sappiamo che $C=m^e \mod(n)$ quindi:
 $$(x\cdot y)^e \mod n = (m)^e \mod n$$
 $$ i\cdot i = m$$
-Per risolvere questo attacco basta aggiungere del \textit{padding} ottenuto in maniera pseudo casuale dalla funzione OAEP(Optical assimetric encryption padding)
-\end{center}
+Per risolvere questo attacco basta aggiungere del \textit{padding} ottenuto in maniera pseudo casuale dalla funzione OAEP(Optical assimetric encryption padding).
+\newpage
 \item \textit{Common module attack}: Se Bob scrive ad Alice ed a Carol scrive lo stesso messaggio usando lo stesso modulo $n$ allora Bob è attaccabile, dimostrazione:\\
 $$C_1=m^{e_1} \mod(n)$$ $$ C_2=m^{e_2} \mod(n)$$\\
 Per Euclide esteso sappiamo che:\\
@@ -494,10 +492,10 @@ Per esempio, rcon(1) = 1, rcon(2) = 2, rcon(3) = 4, e rcon(9) è il numero esade
 Queste operazioni vengono utilizzate in un ciclo interno nel key schedule per generare un'array di 48 word da un byte l'una. Per fare ciò esegue i seguenti passaggi\footnote{Per maggiori informazioni si guardi il seguente link: http://www.formaestudio.com/rijndaelinspector/archivos/Rijndael\_Animation\_v4\_eng.swf }
 \begin{itemize}
 \item[1] si prende in input una word $W$ da 4 byte e si occupano le prime 4 posizioni dell'array
-\item[2] Se si sta generando il byte in posizione $W_i$ si prende il byte in posizione $W_{i-1}$ 
+\item[2] Se si sta generando il byte in posizione $W_i$ si prende il byte in posizione $W_{i-1}$ come base per generare $W_i$
 \item[3] Se $W_i$ è il primo byte della chiave di round si applica la funzione Rotate definita sopra per ruotare di otto bit verso sinistra $W_{i-1}$ altrimenti si va al punto 5
 \item[4] Se $W_i$ è il primo byte della chiave di round si applica la S-box di Rijndael (SubByte) su tutti e quattro i singoli byte della parola di output altrimenti si va al punto 5
-\item[5] Sul primo byte della chiave di round, si applica l'OR esclusivo tra il byte, Rcon(i) e $W_{i-4}$ mentre sugli altri si applica l'OR esclusivo tra il byte, Rcon(i).
+\item[5] Sul primo byte della chiave di round, si applica l'OR esclusivo tra il byte, Rcon(i) e $W_{i-4}$ mentre sugli altri si applica l'OR esclusivo tra il byte $W_{i-1}$ e $W_{i-4}$	.
 \item[6] Ogni 4 byte viene generata la chiave di round
 \end{itemize}
 
@@ -538,7 +536,7 @@ Si basa sul teorema di fermat:\\
 se p è primo $\Rightarrow a^{p-1}\equiv 1 \mod(p)$
 Esempio:\\
 $n=35$ se prendo $a=2:\\
-2^{24}\equiv \mod(35) \Rightarrow \equiv 9
+2^{34}\equiv \mod(35) \Rightarrow \equiv 9
 $
 \subsection{Test di Miller-Rabin}
 Se penso che n sia primo trovo $n-1=2^k\cdot m$ e dico:\\
@@ -550,7 +548,7 @@ Si usano per trovare i fattori che compongono n.
 Se si prendono $p$ e $q$ abbastanza vicini so che sono in un intorno della $\sqrt{n}$
 $n=x^2-y^2=(x+y)\cdot(x-y)\\x^2=n+y^2$\\
 Esempio:\\
-$n=295927 \sqrt{n+x^2}$ è una radice perfetta per $x=3$ e $x=554$ quindi
+$n=295927$ $\sqrt{n+x^2}$ è una radice perfetta per $x=3$ e $x=554$ quindi\\
 $n=544^2-3^2=\begin{cases}
 544+3 = 547 (q)\\
 554-3 = 541 (p)
@@ -562,15 +560,20 @@ $p-1$ e $q-1$ non devono avere \textit{solo} fattori piccoli altrimenti è veloc
 Si basa sul basic principle: se trovo per $n$ k valori tc:\\
 $$x_0^2\equiv y_0^2\cdot m_0^2 \cdot ... \cdot k_0^2 \mod(n)$$ \\
 $$x_1^2\equiv y_1^2\cdot m_1^2 \cdot ... \cdot k_1^2 \mod(n)$$ \\
+$$...$$\\
+$$x_k^2\equiv y_k^2\cdot m_k^2 \cdot ... \cdot k_k^2 \mod(n)$$ \\
 allora posso "raggruppare" questi valori per ottenere:
 $$
 x_0\cdot x_1 \cdot .... x_k = y_0 \cdot m_0 \cdot k_0 \cdot ... \cdot k_k\\
 \Rightarrow \\
 x = y\\
 $$
-$$MCD(x-y,n)=p oppure q
-$$
+\begin{center}
+$MCD(x-y,n)=$p oppure q
+\end{center}
+
 La tecnica Rho di Pollar si usa per attaccare RSA.
+\newpage
 \section{Cifrari a chiave simmetrica: DES}
 \subsection{prefazione}
 Un po' di storia
@@ -587,12 +590,12 @@ Un po' di storia
 
 \end{itemize}
 
-C'erano però dei problemi legati a DES:
+C'erano però dei problemi legati a DES che si erano notati quasi immediatamente:
 \begin{itemize}
 \item DES usava chiavi piccole
 \item NSA aveva messo mano e segretato una parte del codice
 \item Nessuno poteva testare le funzioni dell'NSA
-\item Ogni chiave di DES è composta da 8 bit e l'ottavo è di parità si hanno quindi chiavi da 7 caratteri. Nel caso peggiore ho quindi $2^58$ chiavi mentre il caso medio è di $2^28$ chiavi
+\item Ogni chiave di DES è composta da 8 bit e l'ottavo è di parità si hanno quindi chiavi da 7 caratteri. Nel caso peggiore ho quindi $2^{58}$ chiavi mentre il caso medio è di $2^{28}$ chiavi
 \item DES fa 16 round, ovvero chiamate di funzione, di tipo Feistell: questo tipo di funzione computa solo il 50\% del plaintext quindi ogni metà del testo veniva computata solo 8 volte
 \end{itemize}
 \subsection{Struttura di DES}
@@ -623,8 +626,7 @@ L'alternanza di sostituzioni mediante le S-box, le permutazioni con la P-box e l
 \begin{figure}[htbp]
 \includegraphics[scale=0.6]{immagini/DES_gestore_chiave.png}
 \end{figure}
-
-L'algoritmo che genera le sottochiavi. Inizialmente, vengono selezionati 56 bit della chiave dagli iniziali 64 bit mediante la funzione Permuted Choice 1 (PC-1) - i rimanenti 8 bit sono scartati o utilizzati come bit di controllo della parità. I 56 vengono poi suddivisi in 2 metà di 28 bit; ogni metà è poi trattata separatamente. Nei cicli successivi entrambe le metà vengono fatte slittare verso sinistra di 1 o 2 bit (per i round 1, 2, 9, 16 lo shift, cioè lo slittamento, è di 1 bit, per gli altri è di 2) e quindi vengono scelti 48 bit per la sottochiave mediante la funzione Permuted Choice 2 (PC-2) - 24 bit dalla metà di sinistra e 24 bit da quella di destra. La rotazione (denotata da "<<<" nello schema) significa che in ogni sottochiave è usato un insieme differente di bit; ogni bit è usato più o meno in 14 delle 16 sottochiavi.Il gestore delle chiavi per la decifratura è simile - deve generare le chiavi nell'ordine inverso quindi la rotazione è verso destra invece che verso sinistra.
+È l'algoritmo che genera le sottochiavi. Inizialmente, vengono selezionati 56 bit della chiave dagli iniziali 64 bit mediante la funzione Permuted Choice 1 (PC-1) - i rimanenti 8 bit sono scartati o utilizzati come bit di controllo della parità. I 56 vengono poi suddivisi in 2 metà di 28 bit; ogni metà è poi trattata separatamente. Nei cicli successivi entrambe le metà vengono fatte slittare verso sinistra di 1 o 2 bit (per i round 1, 2, 9, 16 lo shift, cioè lo slittamento, è di 1 bit, per gli altri è di 2) e quindi vengono scelti 48 bit per la sottochiave mediante la funzione Permuted Choice 2 (PC-2) - 24 bit dalla metà di sinistra e 24 bit da quella di destra. La rotazione (denotata da "<<<" nello schema) significa che in ogni sottochiave è usato un insieme differente di bit; ogni bit è usato più o meno in 14 delle 16 sottochiavi.Il gestore delle chiavi per la decifratura è simile - deve generare le chiavi nell'ordine inverso quindi la rotazione è verso destra invece che verso sinistra.
 
 \subsection{Attacco a DES}
 \subsubsection{prefazione}
@@ -635,7 +637,7 @@ In questo corso si vede l'attacco a DES in una versione semplificata: i Round so
 Le modalità di funzionamento dei cifrari a blocchi sono state definite inizialmente dal NIST (National Institute of Standards and Technology) nel documento FIPS 81 (Federal Information Processing Standard) intitolato "DES modes of operation" affinché l'algoritmo di cifratura DES potesse essere applicato ad una varietà di situazioni differenti.
 Queste modalità cercano dunque di considerare tutte le possibili applicazioni della crittografia per cui può essere utilizzato l'algoritmo DES; con la successiva comparsa di nuovi requisiti, il NIST ha espanso l'elenco delle modalità di funzionamento a cinque, nel documento Special Publication 800-38A.
 Tali modalità possono essere utilizzate con qualsiasi algoritmo di cifratura simmetrica a blocchi, tra cui Triple DES e AES.
-\subsection{ECB (eletronic codebook}
+\subsection{ECB (eletronic codebook)}
 La modalità ECB è la più semplice. Il testo in chiaro viene gestito 64 bit per volta; ognuno dei blocchi di 64 bit viene cifrato con la stessa chiave. Per messaggi più lunghi di 64 bit, si procede suddividendo il messaggio in blocchi di 64 bit, utilizzando, se necessario, bit di riempimento nell'ultimo blocco.
 
 \begin{figure}[htbp]
@@ -673,7 +675,7 @@ e lo stesso ragionamento vale per i passi successivi.
 Il problema di questa tecnica di cifratura risulta nella facilità della propagazione dell'errore dato che al passo $k_i$ la corretta decifratura dipende dal passo $k_{i-1}$.
 
 \subsection{Output Feedback (OFB)}
-La modalità OFB è molto simile alla CFB. Il vantaggio della OFB è che non propaga gli errori di trasmissione dei bit. Il suo svantaggio è che è più vulnerabile a un attacco a modifica del flusso dei messaggi.
+La modalità OFB è molto simile alla CFB. Il vantaggio della OFB è che non propaga gli errori di trasmissione dei bit. Infatti inserisce nel IV anziche $C_k$ la chiave con cui è stato cifrato il blocco $C_k$. Il suo svantaggio è che è più vulnerabile a un attacco a modifica del flusso dei messaggi.
 
 \begin{figure}[htbp]
 \includegraphics[scale=0.8]{immagini/ofb.png}
@@ -682,8 +684,8 @@ La modalità OFB è molto simile alla CFB. Il vantaggio della OFB è che non pro
 Solitamente si usa questa modalità quando si può accettare un ritardo nella risposta rispetto alla sua correttezza
 
 \subsection{Counter (CTR)}
-uesta quinta modalità è stata introdotta successivamente alle altre quattro, per poter essere applicata a ATM (Asynchronous Transfer Mode) e a IPsec (IP security).
-In questa modalità viene utilizzato un contatore corrispondente alle dimensioni del blocco di testo in chiaro. Il requisito essenziale è che il suo valore sia differente per ciascun blocco da cifrare; in genere viene inizializzato con un determinato valore e poi incrementato di un'unità per ogni blocco successivo (modulo $2?b$ dove $b$ corrisponde alle dimensioni del blocco).
+Questa quinta modalità è stata introdotta successivamente alle altre quattro, per poter essere applicata a ATM (Asynchronous Transfer Mode) e a IPsec (IP security).
+In questa modalità viene utilizzato un contatore corrispondente alle dimensioni del blocco di testo in chiaro. Il requisito essenziale è che il suo valore sia differente per ciascun blocco da cifrare; in genere viene inizializzato con un determinato valore e poi incrementato di un'unità per ogni blocco successivo (modulo $^b$ dove $b$ corrisponde alle dimensioni del blocco).
 Per la cifratura, il contatore viene crittografato e poi si applica uno XOR col blocco di testo in chiaro per produrre il blocco di testo cifrato.
 Per la decifratura si utilizza la stessa sequenza di valori del contatore ai quali si applica lo XOR con i blocchi di testo cifrato.
 
@@ -735,15 +737,15 @@ Quindi facendo così posso capire se x è pari o dispari ma ho ancora uno spazio
 
 \subsection{Attacco baby step - giant step}
 
-$\alpha^x \equiv \beta \mod(p)$ - $N^2\ge p-1 $ - $N=\mathcal{b} \sqrt{p-1} \mathcal{c} +1$\\
+$\alpha^x \equiv \beta \mod(p)$\\ $N^2\ge p-1 $\\ $N=\mathcal{b} \sqrt{p-1} \mathcal{c} +1$\\
 
 Ora creo una lista di potenze di $\alpha$ in questo modo: $\sum_{J=0}^{J=N} \alpha^J$ e successivamente inizio a generare la lista $\beta \cdot \alpha^{-N\cdot K}$ con $0 \leq k \leq N$ fino a quando o non si raggiunge $\alpha^J$ oppure non si trova $\alpha^n \equiv \beta \cdot\alpha^{-N\cdot k}$, se trovo quel valore allora posso sfruttare Fermat, infatti:
 $\alpha^n \equiv \beta \cdot\alpha^{-N\cdot k} \Rightarrow \alpha^n \cdot \alpha^{-N\cdot k} \equiv \beta \Rightarrow \alpha^{j+N\cdot k} \equiv \beta $\\
 
-Ma $j+N\cdot k$ è il valore x che stavamo cercando. Questo attacco va bene fino a $10^20$ cifre poi il tempo di computazione diventa troppo elevato.
+Ma $j+N\cdot k$ è il valore x che stavamo cercando. Questo attacco va bene fino a $10^{20}$ cifre poi il tempo di computazione diventa troppo elevato.
 
 \subsection{Attacco Index Calculus}
-Questo tipo di attacco esegue una precomputazione "sperando" che con i conti fatti si possa trovare la il valore di x. Eva recupera il messaggio cifrato $\beta=\alpha^x$ la base $\alpha$ e il numero primo della chiave pubblica. A questo punto Eva sceglie una base di fattorizzazione ovvero un insieme di numeri primi minori di un valore N. A questo punto trovo un po' di valori $\alpha^k$ con $0\leq k \leq \beta$ e se riesco a trovare il valore congruo in $Z_p$ esprimibile tramite la base di fattorizazione tengo il valore altrimenti calcolo altri $\alpha^k$ fino a quando non ho trovato tutti i valori che posso rappresentare tramite la base di fattorizzazione in $Z_p$. A questo punto calcolo i vari logaritmi dei valori che ho trovatoè, finiti questi calcoli genero un valore $r$ casuale e calcolo $\beta\cdot\alpha^r$ se questo valore posso rappresentarlo tramite la base di fattorizzazione allora posso trovare il valore x, infatti:
+Questo tipo di attacco esegue una precomputazione "sperando" che con i conti fatti si possa trovare la il valore di x. Eva recupera il messaggio cifrato $\beta=\alpha^x$ la base $\alpha$ e il numero primo p della chiave pubblica. A questo punto Eva sceglie una base di fattorizzazione ovvero un insieme di numeri primi minori di un valore N. A questo punto trovo un po' di valori $\alpha^k$ con $0\leq k \leq \beta$ e se riesco a trovare il valore congruo in $Z_p$ esprimibile tramite la base di fattorizazione tengo il valore altrimenti calcolo altri $\alpha^k$ fino a quando non ho trovato tutti i valori che posso rappresentare tramite la base di fattorizzazione in $Z_p$. A questo punto calcolo i vari logaritmi dei valori che ho trovato, finiti questi calcoli genero un valore $r$ casuale e calcolo $\beta\cdot\alpha^r$ se questo valore posso rappresentarlo tramite la base di fattorizzazione allora posso trovare il valore x, infatti:
 $$ \beta \cdot \alpha^r =
  \alpha^x \cdot \alpha^r = 
  \log_{\alpha}(\alpha^x \cdot \alpha^r) =
@@ -767,26 +769,26 @@ ElGamal è un sistema di cifratura a chiave pubblica, proposto dal ricercatore e
 \begin{itemize}
 \item p è numero primo grande
 \item $\alpha$ radice primitiva di p
-\item $a$ scelto a caso in maniera uniforme tra $[1,(q-1)]$, che costituisce la chiave privata di Alice e deve essere mantenuto segreto.
-\item $b$ scelto a caso in maniera uniforme tra $[1,(q-1)]$, che costituisce la chiave privata di Bob e deve essere mantenuto segreto.
+\item $a$ scelto a caso in maniera uniforme tra $[1,(p-1)]$, che costituisce la chiave privata di Alice e deve essere mantenuto segreto.
+\item $b$ scelto a caso in maniera uniforme tra $[1,(p-1)]$, che costituisce la chiave privata di Bob e deve essere mantenuto segreto.
 \end{itemize} 
-\item[2] Alice vuole inviare un messaggio a Bob, Bob rende disponibile la sua chiave pubblica composta da (p,$\alpha$,$\beta$) dove $\beta = \alpha^b \mod(p)$. Alice recupera queste informazioni e genera $r=\alpha^k\mod p$ e $t=\beta\cdot m \mod(p)$.
-\item[3] Il testo cifrato (r,t) viene inviato a Bob il quale recupera M nel seguente modo: $t\cdot r^b \mod(p) \equiv m$ 
+\item[2] Alice vuole inviare un messaggio a Bob, Bob rende disponibile la sua chiave pubblica composta da (p,$\alpha$,$\beta$) dove $\beta = \alpha^b \mod(p)$. Alice recupera queste informazioni e genera $r=\alpha^k\mod p$ e $t=\beta^k\cdot m \mod(p)$.
+\item[3] Il testo cifrato (r,t) viene inviato a Bob il quale recupera M nel seguente modo: $t\cdot r^{-b} \mod(p) \equiv m$ 
 \end{itemize}
 
 Il procedimento è matematicamente corretto perchè:\\
 $t\cdot r^{-b}=(\beta^k\cdot m)\cdot(\alpha^k)^{-b}=((\alpha^b)^{k}\cdot m)\cdot(\alpha^k)^{-b} = 1 \cdot m$
 
 \subsection{Problematiche di Elgamal}
-Uno sbadato Bob potrebbe usare $b$ per due diversi M, Eva se ne accorge perchè vengono spedite due messaggi con $r$ uguale quindi (Se Eva può fare un attacco Know plaintext):
-$$ \frac{t_1}{M_1}=\beta_k=\frac{t_2}{m_2} \Rightarrow \frac{t_1}{m_1\cdot t_2} = \frac{1}{m_2} $$
+Uno sbadato Bob potrebbe usare lo stesso $b$ per due diversi M, Eva se ne accorge perchè vengono spedite due messaggi con $r$ uguale quindi (Se Eva può fare un attacco Know plaintext):
+$$ \frac{t_1}{m_1}=\beta_k=\frac{t_2}{m_2} \Rightarrow \frac{t_1}{m_1\cdot t_2} = \frac{1}{m_2} $$
 
 \section{Bit Commitment}
-Si utilizza il Bit commitment nel momento in cui Alice vuole rassicurare Bob che ha una informazione senza dare a Bob quest'ultima. Anche in questo caso sfrutto il logaritmo discreto. Supponiamo che alice abbia svilupatto un'algoritmo che permetta di sapere come finirà una partita, Bob è interessato a comprare l'algoritmo ma non si figa, alice allora sceglie $p,\alpha$ e $x$ dove in un bit di $x$ nascondiamo la nostra informazione sul risultato della partita, poi spedisco $\beta = \alpha^x \mod(p)$ e gli dico che nella posizione $i$ di $x$(che non spedisco subito) si trova l'informazione. A questo punto Bob dopo la partita "chiede" il valore di $x$ Alice consegna a Bob $x$ e Bob verifica facendo $\beta = \alpha^x \mod(p)$. Bob a questo punto dopo la verifica può chiedere o la predizione di un'altra partita oppure può decidere di comprare l'algoritmo ad Alice.
+Si utilizza il Bit commitment nel momento in cui Alice vuole rassicurare Bob che ha una informazione senza dare a Bob quest'ultima. Anche in questo caso sfrutto il logaritmo discreto. Supponiamo che alice abbia svilupatto un'algoritmo che permetta di sapere come finirà una partita, Bob è interessato a comprare l'algoritmo ma non si fida, Alice allora sceglie $p,\alpha$ e $x$ dove in un bit di $x$ nascondiamo la nostra informazione sul risultato della partita, poi spedisco $\beta = \alpha^x \mod(p)$ e gli dico che nella posizione $i$ di $x$(che non spedisco subito) si trova l'informazione. A questo punto Bob dopo la partita "chiede" il valore di $x$ Alice consegna a Bob $x$ e Bob verifica che il valore nella posizione $i$ sia effettivamente corretto, a questo punto verifica che il $\beta$ che ha inviato Alice contenesse davvero quel valore di $x$ facendo $\beta = \alpha^x \mod(p)$. Bob a questo punto dopo la verifica può chiedere o la predizione di un'altra partita oppure può decidere di comprare l'algoritmo ad Alice.
 
 \section{Le funzioni Hash}
-Le funzioni Hash prendono in input un parametro di lunghezza infinita.L'output è di dimensione costante e si chiama Hash o message digest. Le funzioni hash devono essere veloci, devono rispettare il principio di confusion e devono essere one way.
-\subsubsection{Proprietà delle funzioni Hash}
+Le funzioni Hash prendono in input un parametro di lunghezza infinita. L'output è di dimensione costante e si chiama Hash o message digest. Le funzioni hash devono essere veloci, devono rispettare il principio di confusion e devono essere one way.
+\subsection{Proprietà delle funzioni Hash}
 \begin{itemize}
 \item Pre image persistance: è computazionalmente intrattabile la ricerca di una stringa in input che dia un hash uguale a un dato hash
 \item Second image persistance: è computazionalmente intrattabile la ricerca di una stringa in input che dia un hash uguale a quello di una data stringa
@@ -828,7 +830,7 @@ Esempio:\\
 Prendo 100 studenti faccio 2 liste da 30 studenti, con che probabilità avrò due studenti nati nello stesso giorno?\\
 $1-e^{\frac{-r^2}{N}}= 1-e^{\frac{-30^2}{365}}= 0,91$\\
 Analogamente possiamo fare l'attacco a sha1, supponiamo di avere un hash di 60 bit quanto deve essere grande la mia lista per avere il 50\% di probabilità di avere una collisione?
-$1-e^{\frac{-r^2}{n}}=0.5 \Rightarrow r=\sqrt{2^{60}} = 1,07\cdot 10^9 $ questo valore indica la dimensione che deve avere ogni lista. Se volessi fare questo attacco con MD5 dovrei fare una lista di $10^19$, questo dimostra la robustezza di MD5. Il fatto di controllare le due liste è l'attacco baby step - giant step già visto solo che questa volta è probabilistico e non più deterministico
+$1-e^{\frac{-r^2}{n}}=0.5 \Rightarrow r=\sqrt{2^{60}} = 1,07\cdot 10^9 $ questo valore indica la dimensione che deve avere ogni lista. Se volessi fare questo attacco con MD5 dovrei fare una lista di $10^{19}$, questo dimostra la robustezza di MD5. Il fatto di controllare le due liste è l'attacco baby step - giant step già visto solo che questa volta è probabilistico e non più deterministico
 
 \section{Firma digitale}
 La firma digitale, in informatica, rappresenta l'insieme dei dati in forma elettronica, allegati oppure connessi tramite associazione logica ad altri dati elettronici, utilizzati come metodo di identificazione informatica. Può essere basata su varie tecnologie, tra cui la crittografia a chiave pubblica. Per firmare un messaggio molto semplicemente si calcola l'hash del documento, successivamente si cripta con la propria chiave privata il valore hash ottenuto e infine si allega, tutti possono decriptare il valore usando la chiave pubblica ma solo il "firmatario" è a conoscenza della chiave per firmare (esattamente in maniera opposta alla cifratura asimmetrica: qui tutti hanno la chiave per poter aprire il lucchetto per leggere il messaggio, ma solo io ho il lucchetto per "chiudere" il messaggio). Per verificare la validità della firma si decripta la firma con la chiave pubblica e si fa l'hash del messaggio consegnato, a questo punto si controlla se gli hash sono uguali, in caso negativo si sa che il messaggio è stato modificato. Per evitare l'attacco del compleanno si aggiunge un dettaglio di cui solo il mittente è a conoscenza, in questo modo anche se si avesse il testo senza essere a conoscenza di una particolare modifica risulta più difficile da trovare la collisione. 
@@ -837,7 +839,7 @@ La firma digitale, in informatica, rappresenta l'insieme dei dati in forma elett
 \includegraphics[scale=0.4]{immagini/digital-signature.png}
 \end{figure}
 
-Esistono 3 tipi di firme: RSA dove si fa$signature = H(m)^{k_p} \mod(n)$ altri due tipi di firma sono quella di Helgamal e DSA. Infine esistono 2 tipi di schemi per le firme:
+Esistono 3 tipi di firme: RSA dove si fa $signature = H(m)^{k_p} \mod(n)$ altri due tipi di firma sono quella di Helgamal e DSA. Infine esistono 2 tipi di schemi per le firme:
 \begin{itemize}
 \item Message recovery scheme: Sono un tipo di firma dove è possibile recuperare il messaggio dallo schema stesso
 \item Signature with appendix: il messaggio non è facilmente recuperabile dalla firma, bisogna quindi appendere il messaggio in chiaro.
@@ -902,7 +904,7 @@ x=-4
 
 a questo punto per ottenere $P_3$ basta traslare il punto $Q$ quindi $P_3(-4,-3)$. Se volessi calcolare $P_3+P_3$ come faccio? Basta calcolarsi la retta tangente: $y-y_3=m\cdot(x-x_3)$. Troviamo m:\\
 
-$2y\delta y=3x^2\delta x \Rightarrow \frac{\delta y}{\delta x} = \frac{3x^2}{2y} \Rightarrow m=-8$
+$2y\Delta y=3x^2\Delta x \Rightarrow \frac{\Delta y}{\Delta x} = \frac{3x^2}{2y} \Rightarrow m=-8$
 
 Quindi $y=8\cdot(x+4)-3$ metto a sistema con la curva e ottengo:\\
 $x_1+x_2+x_3=-(-64) \Rightarrow x_3=72, y_3=611$ (Questa volta $x_1=x_2=x_{p_3}$
@@ -933,7 +935,7 @@ $0\leq j < K$\\
 
 $y^2=x^3+2\cdot x+7 \mod(179)$\\
 $k=10$\\
-probabilità di errore: $\frac{1}{2^10}$\\
+probabilità di errore: $\frac{1}{2^{10}}$\\
 messaggio: $m=5$\\
 Verifico che $(m+1)\cdot k < p \Rightarrow 60<179$ quindi va bene come curva.\\
 Cerco ora un x che possa generare un valore y che appartiene alla curva:\\
@@ -941,7 +943,7 @@ $\begin{cases}
 x=5\cdot10+0\\
 x=5\cdot10+1\\
 x=5\cdot10+2\\
-...
+...\\
 x=5\cdot10+9
 \end{cases}
 $
@@ -961,14 +963,18 @@ Notare che anche in questo caso si è attaccabili tramite MITM.
 
 Per maggiori informazioni sulle curve ellittiche si consulti "crittografia su curve ellittiche" http://www.di.unipi.it/~annab/CRI14/ECC.pdf
 
-%ho due casi:\\
-%\begin{center}
-%$\begin{cases}
-%MCD(p,m) \not= 1\\
-%MCD(p,m) = 1
-%\end{cases}
-%$\\
-%\end{center}
+\section{Ringraziamenti}
+Se siete arrivati fino alla fine e avete voglia di leggere ancora sappiate che questi appunti sono stati ampliati grazie alle varie voci di wikipedia, se già non lo fate durante la raccolta fondi offrite un caffè a wikipedia perchè è una grande fonte di informazioni e approfondimenti (e se passate l'esame offritene anche due). Vorrei ringraziare anche Lucrezia per avermi dato una mano a correggere questi appunti, e Alex "langame" per avermi aiutato ad impagire questi appunti.Vorrei infine ringraziare anche il docente del corso Andrea Visconti per riuscire a trasmettere la passione per la materia ai suoi studenti e alla pazienza che ha nel rispondere ad ogni domanda. Infine vi faccio notare che questi appunti sono sono Creative Common - Attribuzione - Non commerciale. Questo vuol dire che siete liberi di:\\
+-Condividere: riprodurre, distribuire, comunicare al pubblico, esporre in pubblico, rappresentare, eseguire e recitare questo materiale con qualsiasi mezzo e formato.\\
+-Modificare: remixare, trasformare il materiale e basarti su di esso per le tue opere \\
+\textbf{Purchè:}\\
+Attribuzione: Devi riconoscere una menzione di paternità adeguata, fornire un link alla licenza e indicare se sono state effettuate delle modifiche. Puoi fare ciò in qualsiasi maniera ragionevole possibile, ma non con modalità tali da suggerire che il licenziante avalli te o il tuo utilizzo del materiale. \\
+NonCommerciale: Non puoi usare il materiale per scopi commerciali. \\
 
+È inoltre disponibile il sorgente in latex di questo pdf al seguente link:.... Se trovate degli errori, volete aggiungere o approfondire sentitevi pure libere di farlo!
+
+Ci si vede sul web!
+
+Danilo "Bestbug" Giordani
 \end{document}
 
